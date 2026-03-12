@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickCab - Online Taxi Booking System</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="images/logo.png" alt="QuickCab">
+                <span>QuickCab</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="book-ride.html">Book Ride</a></li>
+                <li><a href="fleet.html">Fleet</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <a href="login.html" class="btn-outline">Login</a>
+                <a href="register.html" class="btn-primary">Register</a>
+            </div>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Book Your Ride <span>in Minutes</span></h1>
+                <p>Safe, reliable, and affordable rides at your fingertips</p>
+            </div>
+            <div class="booking-card">
+                <h3>Where are you going?</h3>
+                <form id="home-booking-form">
+                    <div class="form-group">
+                        <i class="fas fa-circle"></i>
+                        <input type="text" placeholder="Pickup Location" id="pickup" required>
+                    </div>
+                    <div class="form-group">
+                        <i class="fas fa-map-pin"></i>
+                        <input type="text" placeholder="Drop Location" id="drop" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <select id="car-type">
+                                <option value="">Select Car</option>
+                                <option value="mini">Mini</option>
+                                <option value="sedan">Sedan</option>
+                                <option value="suv">SUV</option>
+                                <option value="luxury">Luxury</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="datetime-local" id="datetime" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-primary btn-block">Book Now →</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services">
+        <div class="container">
+            <h2 class="section-title">Our <span>Services</span></h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="icon"><i class="fas fa-city"></i></div>
+                    <h3>City Rides</h3>
+                    <p>Quick and comfortable city rides anytime</p>
+                </div>
+                <div class="service-card">
+                    <div class="icon"><i class="fas fa-plane"></i></div>
+                    <h3>Airport Transfers</h3>
+                    <p>Hassle-free airport pickup and drop</p>
+                </div>
+                <div class="service-card">
+                    <div class="icon"><i class="fas fa-road"></i></div>
+                    <h3>Outstation Trips</h3>
+                    <p>Long distance trips at best prices</p>
+                </div>
+                <div class="service-card">
+                    <div class="icon"><i class="fas fa-building"></i></div>
+                    <h3>Corporate Travel</h3>
+                    <p>Business travel solutions for companies</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fleet Section -->
+    <section class="fleet">
+        <div class="container">
+            <h2 class="section-title">Our <span>Fleet</span></h2>
+            <div class="fleet-grid">
+                <div class="car-card">
+                    <img src="images/taxi1.png" alt="Mini">
+                    <h3>Mini</h3>
+                    <p><i class="fas fa-users"></i> 4 Passengers</p>
+                    <p><i class="fas fa-tag"></i> ₹10/km</p>
+                    <a href="book-ride.html" class="btn-outline">Book Now</a>
+                </div>
+                <div class="car-card">
+                    <img src="images/taxi2.png" alt="Sedan">
+                    <h3>Sedan</h3>
+                    <p><i class="fas fa-users"></i> 4 Passengers</p>
+                    <p><i class="fas fa-tag"></i> ₹14/km</p>
+                    <a href="book-ride.html" class="btn-outline">Book Now</a>
+                </div>
+                <div class="car-card">
+                    <img src="images/taxi1.png" alt="SUV">
+                    <h3>SUV</h3>
+                    <p><i class="fas fa-users"></i> 6 Passengers</p>
+                    <p><i class="fas fa-tag"></i> ₹18/km</p>
+                    <a href="book-ride.html" class="btn-outline">Book Now</a>
+                </div>
+                <div class="car-card">
+                    <img src="images/taxi2.png" alt="Luxury">
+                    <h3>Luxury</h3>
+                    <p><i class="fas fa-users"></i> 4 Passengers</p>
+                    <p><i class="fas fa-tag"></i> ₹25/km</p>
+                    <a href="book-ride.html" class="btn-outline">Book Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="why-us">
+        <div class="container">
+            <h2 class="section-title">Why <span>Choose Us</span></h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <i class="fas fa-shield-alt"></i>
+                    <h4>Safe Drivers</h4>
+                    <p>Verified and trained drivers</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-bolt"></i>
+                    <h4>Fast Pickup</h4>
+                    <p>Reach in 5-10 minutes</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-wallet"></i>
+                    <h4>Affordable Price</h4>
+                    <p>Best rates in town</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-headset"></i>
+                    <h4>24/7 Support</h4>
+                    <p>Always here to help</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Download -->
+    <section class="app-download">
+        <div class="container">
+            <div class="app-content">
+                <h2>Download Our App</h2>
+                <p>Get the best experience with our mobile app</p>
+                <div class="store-buttons">
+                    <a href="#"><img src="images/playstore.png" alt="Google Play"></a>
+                    <a href="#"><img src="images/appstore.png" alt="App Store"></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

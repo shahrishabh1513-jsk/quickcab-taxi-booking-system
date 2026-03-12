@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - QuickCab</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="navbar"></div>
+
+    <div class="dashboard-container">
+        <!-- Admin Sidebar -->
+        <div class="dashboard-sidebar admin-sidebar">
+            <div class="user-profile">
+                <i class="fas fa-user-shield"></i>
+                <h4>Admin</h4>
+                <p>admin@quickcab.com</p>
+            </div>
+            <ul class="sidebar-menu">
+                <li class="active"><a href="admin-dashboard.html"><i class="fas fa-dashboard"></i> Dashboard</a></li>
+                <li><a href="manage-users.html"><i class="fas fa-users"></i> Manage Users</a></li>
+                <li><a href="manage-drivers.html"><i class="fas fa-id-card"></i> Manage Drivers</a></li>
+                <li><a href="manage-bookings.html"><i class="fas fa-book"></i> Manage Bookings</a></li>
+                <li><a href="manage-cars.html"><i class="fas fa-car"></i> Manage Cars</a></li>
+                <li><a href="reports.html"><i class="fas fa-chart-line"></i> Reports</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="dashboard-main">
+            <h2>Admin Dashboard</h2>
+            
+            <!-- Stats Overview -->
+            <div class="stats-grid">
+                <div class="stat-card admin-stat">
+                    <i class="fas fa-users"></i>
+                    <div class="stat-info">
+                        <h3>2,543</h3>
+                        <p>Total Users</p>
+                    </div>
+                </div>
+                <div class="stat-card admin-stat">
+                    <i class="fas fa-id-card"></i>
+                    <div class="stat-info">
+                        <h3>547</h3>
+                        <p>Total Drivers</p>
+                    </div>
+                </div>
+                <div class="stat-card admin-stat">
+                    <i class="fas fa-car"></i>
+                    <div class="stat-info">
+                        <h3>8,932</h3>
+                        <p>Total Bookings</p>
+                    </div>
+                </div>
+                <div class="stat-card admin-stat">
+                    <i class="fas fa-rupee-sign"></i>
+                    <div class="stat-info">
+                        <h3>₹18.2L</h3>
+                        <p>Total Revenue</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pending Approvals -->
+            <div class="pending-approvals">
+                <h3>Pending Driver Approvals</h3>
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Vehicle</th>
+                            <th>License</th>
+                            <th>Documents</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Suresh Patel</td>
+                            <td>9876543210</td>
+                            <td>Swift · Mini</td>
+                            <td>DL-123456</td>
+                            <td><a href="#" class="view-link">View</a></td>
+                            <td>
+                                <button class="btn-approve">✓ Approve</button>
+                                <button class="btn-reject">✗ Reject</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Mahesh Kumar</td>
+                            <td>8765432109</td>
+                            <td>Etios · Sedan</td>
+                            <td>DL-789012</td>
+                            <td><a href="#" class="view-link">View</a></td>
+                            <td>
+                                <button class="btn-approve">✓ Approve</button>
+                                <button class="btn-reject">✗ Reject</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Prakash Singh</td>
+                            <td>7654321098</td>
+                            <td>Innova · SUV</td>
+                            <td>DL-345678</td>
+                            <td><a href="#" class="view-link">View</a></td>
+                            <td>
+                                <button class="btn-approve">✓ Approve</button>
+                                <button class="btn-reject">✗ Reject</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Recent Bookings -->
+            <div class="recent-activity">
+                <h3>Recent Bookings</h3>
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>User</th>
+                            <th>Driver</th>
+                            <th>From → To</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#QC2345</td>
+                            <td>Rahul S.</td>
+                            <td>Rajesh K.</td>
+                            <td>Indiranagar → Airport</td>
+                            <td>₹450</td>
+                            <td><span class="status completed">Completed</span></td>
+                        </tr>
+                        <tr>
+                            <td>#QC2346</td>
+                            <td>Priya M.</td>
+                            <td>Suresh P.</td>
+                            <td>Koramangala → MG Road</td>
+                            <td>₹220</td>
+                            <td><span class="status ongoing">Ongoing</span></td>
+                        </tr>
+                        <tr>
+                            <td>#QC2347</td>
+                            <td>Amit K.</td>
+                            <td>Pending</td>
+                            <td>Whitefield → Electronic City</td>
+                            <td>₹380</td>
+                            <td><span class="status pending">Pending</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer"></div>
+    <script src="../js/main.js"></script>
+    <script src="../js/auth.js"></script>
+</body>
+</html>

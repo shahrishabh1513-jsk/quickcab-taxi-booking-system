@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Dashboard - QuickCab</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="navbar"></div>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="dashboard-sidebar">
+            <div class="user-profile">
+                <img src="../images/driver-avatar.jpg" alt="Driver">
+                <h4>Rajesh Kumar</h4>
+                <p>rajesh.driver@email.com</p>
+                <span class="badge online">Online</span>
+            </div>
+            <ul class="sidebar-menu">
+                <li class="active"><a href="driver-dashboard.html"><i class="fas fa-dashboard"></i> Dashboard</a></li>
+                <li><a href="ride-requests.html"><i class="fas fa-clock"></i> Ride Requests</a></li>
+                <li><a href="earnings.html"><i class="fas fa-rupee-sign"></i> Earnings</a></li>
+                <li><a href="driver-profile.html"><i class="fas fa-user"></i> Profile</a></li>
+            </ul>
+            <div class="driver-status">
+                <button class="btn-primary" onclick="toggleStatus()">Go Offline</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="dashboard-main">
+            <div class="welcome-header">
+                <h2>Driver Dashboard</h2>
+                <p>You are online and receiving ride requests</p>
+            </div>
+            
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-car"></i>
+                    <div class="stat-info">
+                        <h3>142</h3>
+                        <p>Total Rides</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-star"></i>
+                    <div class="stat-info">
+                        <h3>4.8</h3>
+                        <p>Rating</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-rupee-sign"></i>
+                    <div class="stat-info">
+                        <h3>₹45,200</h3>
+                        <p>This Month</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-clock"></i>
+                    <div class="stat-info">
+                        <h3>3</h3>
+                        <p>Pending Requests</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Current Ride Request -->
+            <div class="ride-request-card">
+                <h3>New Ride Request</h3>
+                <div class="request-details">
+                    <p><i class="fas fa-user"></i> Rahul S. (4.5 ⭐)</p>
+                    <p><i class="fas fa-map-marker"></i> Pickup: Indiranagar</p>
+                    <p><i class="fas fa-map-pin"></i> Drop: Airport</p>
+                    <p><i class="fas fa-clock"></i> 2 mins ago · 8.5 km</p>
+                    <p><i class="fas fa-tag"></i> Estimated Fare: ₹120</p>
+                </div>
+                <div class="request-actions">
+                    <button class="btn-primary">Accept Ride</button>
+                    <button class="btn-outline">Decline</button>
+                </div>
+            </div>
+
+            <!-- Today's Rides -->
+            <div class="today-rides">
+                <h3>Today's Rides</h3>
+                <table class="rides-table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Customer</th>
+                            <th>From → To</th>
+                            <th>Fare</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>09:30 AM</td>
+                            <td>Arun P.</td>
+                            <td>MG Road → Forum</td>
+                            <td>₹180</td>
+                            <td><span class="status completed">Completed</span></td>
+                        </tr>
+                        <tr>
+                            <td>11:45 AM</td>
+                            <td>Priya K.</td>
+                            <td>Koramangala → Airport</td>
+                            <td>₹450</td>
+                            <td><span class="status completed">Completed</span></td>
+                        </tr>
+                        <tr>
+                            <td>02:15 PM</td>
+                            <td>Vikram S.</td>
+                            <td>Whitefield → Electronic City</td>
+                            <td>₹380</td>
+                            <td><span class="status ongoing">Ongoing</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer"></div>
+    <script src="../js/main.js"></script>
+    <script src="../js/auth.js"></script>
+</body>
+</html>

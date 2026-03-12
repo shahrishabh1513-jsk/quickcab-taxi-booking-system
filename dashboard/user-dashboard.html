@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - QuickCab</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="navbar"></div>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="dashboard-sidebar">
+            <div class="user-profile">
+                <img src="../images/user-avatar.jpg" alt="User">
+                <h4>Rahul Sharma</h4>
+                <p>rahul@email.com</p>
+            </div>
+            <ul class="sidebar-menu">
+                <li class="active"><a href="user-dashboard.html"><i class="fas fa-dashboard"></i> Dashboard</a></li>
+                <li><a href="my-bookings.html"><i class="fas fa-book"></i> My Bookings</a></li>
+                <li><a href="ride-tracking.html"><i class="fas fa-map"></i> Ride Tracking</a></li>
+                <li><a href="payment.html"><i class="fas fa-credit-card"></i> Payment</a></li>
+                <li><a href="profile-settings.html"><i class="fas fa-user"></i> Profile Settings</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="dashboard-main">
+            <h2>Welcome back, Rahul!</h2>
+            
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-car"></i>
+                    <div class="stat-info">
+                        <h3>24</h3>
+                        <p>Total Rides</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-clock"></i>
+                    <div class="stat-info">
+                        <h3>2</h3>
+                        <p>Upcoming Rides</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-check-circle"></i>
+                    <div class="stat-info">
+                        <h3>20</h3>
+                        <p>Completed</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-times-circle"></i>
+                    <div class="stat-info">
+                        <h3>2</h3>
+                        <p>Cancelled</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Bookings -->
+            <div class="recent-bookings">
+                <h3>Recent Bookings</h3>
+                <table class="bookings-table">
+                    <thead>
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>Pickup</th>
+                            <th>Destination</th>
+                            <th>Driver</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#QC1234</td>
+                            <td>Indiranagar</td>
+                            <td>Airport</td>
+                            <td>Rajesh K.</td>
+                            <td>₹450</td>
+                            <td><span class="status completed">Completed</span></td>
+                        </tr>
+                        <tr>
+                            <td>#QC1235</td>
+                            <td>Koramangala</td>
+                            <td>MG Road</td>
+                            <td>Suresh M.</td>
+                            <td>₹220</td>
+                            <td><span class="status upcoming">Upcoming</span></td>
+                        </tr>
+                        <tr>
+                            <td>#QC1236</td>
+                            <td>Whitefield</td>
+                            <td>Electronic City</td>
+                            <td>Arun P.</td>
+                            <td>₹680</td>
+                            <td><span class="status ongoing">Ongoing</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer"></div>
+    <script src="../js/main.js"></script>
+    <script src="../js/auth.js"></script>
+</body>
+</html>

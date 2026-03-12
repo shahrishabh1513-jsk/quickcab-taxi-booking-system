@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Ride - QuickCab</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/booking.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="navbar"></div>
+
+    <section class="booking-page">
+        <div class="container">
+            <h1 class="page-title">Book Your <span>Ride</span></h1>
+            <div class="booking-layout">
+                <!-- Left: Booking Form -->
+                <div class="booking-form-container">
+                    <div class="form-card">
+                        <h3>Ride Details</h3>
+                        <form id="booking-form">
+                            <div class="form-group">
+                                <label><i class="fas fa-circle"></i> Pickup Location</label>
+                                <input type="text" id="pickup" placeholder="Enter pickup location" required>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-map-pin"></i> Drop Location</label>
+                                <input type="text" id="drop" placeholder="Enter destination" required>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Car Type</label>
+                                    <select id="car-type" onchange="calculateFare()">
+                                        <option value="mini">Mini (₹10/km)</option>
+                                        <option value="sedan">Sedan (₹14/km)</option>
+                                        <option value="suv">SUV (₹18/km)</option>
+                                        <option value="luxury">Luxury (₹25/km)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Distance (km)</label>
+                                    <input type="number" id="distance" placeholder="Enter distance" onkeyup="calculateFare()">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Date</label>
+                                    <input type="date" id="date" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Time</label>
+                                    <input type="time" id="time" required>
+                                </div>
+                            </div>
+                            
+                            <!-- Fare Estimate -->
+                            <div class="fare-estimate">
+                                <h4>Estimated Fare</h4>
+                                <div class="fare-details">
+                                    <p>Base Fare: <span id="base-fare">₹0</span></p>
+                                    <p>Distance: <span id="distance-fare">₹0</span></p>
+                                    <p class="total">Total: <span id="total-fare">₹0</span></p>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn-primary btn-block">Confirm Booking</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Right: Map -->
+                <div class="map-container">
+                    <div class="map-placeholder">
+                        <i class="fas fa-map"></i>
+                        <p>Google Maps Integration</p>
+                        <small>Map will show pickup and drop locations</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Confirmation Modal -->
+    <div id="booking-modal" class="modal">
+        <div class="modal-content">
+            <i class="fas fa-check-circle"></i>
+            <h2>Booking Confirmed!</h2>
+            <p>Your ride has been booked successfully</p>
+            <div class="driver-info">
+                <h4>Driver arriving in 10 minutes</h4>
+                <p><i class="fas fa-user"></i> Rajesh Kumar</p>
+                <p><i class="fas fa-car"></i> Mini · RJ-14-AB-1234</p>
+                <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+            </div>
+            <button onclick="closeModal()" class="btn-primary">Track Ride</button>
+        </div>
+    </div>
+
+    <div id="footer"></div>
+
+    <script src="js/main.js"></script>
+    <script src="js/booking.js"></script>
+</body>
+</html>
