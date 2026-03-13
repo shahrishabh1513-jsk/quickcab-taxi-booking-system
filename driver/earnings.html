@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earnings - QuickCab</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .earnings-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .earnings-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: transform 0.3s;
+        }
+        
+        .earnings-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .earnings-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            width: 60px;
+            height: 60px;
+            background: var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .earnings-info h3 {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 0.3rem;
+        }
+        
+        .earnings-info .amount {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        
+        .earnings-info .subtext {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        .period-selector {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .period-btn {
+            padding: 0.5rem 1.5rem;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .period-btn:hover,
+        .period-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .chart-container {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .chart-legend {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 4px;
+        }
+        
+        .chart-placeholder {
+            height: 300px;
+            background: linear-gradient(180deg, var(--light) 0%, #f0f0f0 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 2rem;
+            padding: 1rem;
+        }
+        
+        .bar-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 50px;
+        }
+        
+        .bar {
+            width: 40px;
+            background: var(--primary);
+            border-radius: 8px 8px 0 0;
+            transition: height 0.3s;
+            position: relative;
+        }
+        
+        .bar:hover {
+            background: var(--primary-dark);
+        }
+        
+        .bar:hover::after {
+            content: attr(data-amount);
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--dark);
+            color: white;
+            padding: 0.3rem 0.5rem;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+        }
+        
+        .bar-label {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        .earnings-table {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .earnings-table h3 {
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .table-responsive {
+            overflow-x: auto;
+        }
+        
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+        
+        .table th {
+            text-align: left;
+            padding: 1rem;
+            background: var(--light);
+            font-weight: 600;
+        }
+        
+        .table td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .table tr:hover {
+            background: var(--light);
+        }
+        
+        .badge-success {
+            background: #d4edda;
+            color: #155724;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        
+        .payout-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .payout-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .payout-amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .bank-details {
+            background: var(--light);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .bank-info h4 {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 0.3rem;
+        }
+        
+        .bank-info p {
+            font-weight: 600;
+        }
+        
+        .payout-history {
+            margin-top: 2rem;
+        }
+        
+        .payout-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .payout-item:last-child {
+            border-bottom: none;
+        }
+        
+        .payout-date {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .payout-date i {
+            color: var(--primary);
+        }
+        
+        .payout-status {
+            color: #28a745;
+            font-weight: 500;
+        }
+        
+        @media (max-width: 768px) {
+            .payout-info {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .bank-details {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar"></div>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="dashboard-sidebar">
+            <div class="user-profile">
+                <img src="../images/driver-avatar.jpg" alt="Driver">
+                <h4>Rajesh Kumar</h4>
+                <p>rajesh.driver@email.com</p>
+                <span class="badge online">Online</span>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="driver-dashboard.html"><i class="fas fa-dashboard"></i> Dashboard</a></li>
+                <li><a href="ride-requests.html"><i class="fas fa-clock"></i> Ride Requests</a></li>
+                <li class="active"><a href="earnings.html"><i class="fas fa-rupee-sign"></i> Earnings</a></li>
+                <li><a href="driver-profile.html"><i class="fas fa-user"></i> Profile</a></li>
+            </ul>
+            <div class="driver-status">
+                <button class="btn-primary" onclick="toggleStatus()">Go Offline</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="dashboard-main">
+            <h2>Earnings Overview</h2>
+            
+            <!-- Summary Cards -->
+            <div class="earnings-summary">
+                <div class="earnings-card">
+                    <i class="fas fa-wallet"></i>
+                    <div class="earnings-info">
+                        <h3>Available Balance</h3>
+                        <div class="amount">₹5,280</div>
+                        <div class="subtext">Ready for payout</div>
+                    </div>
+                </div>
+                
+                <div class="earnings-card">
+                    <i class="fas fa-calendar-week"></i>
+                    <div class="earnings-info">
+                        <h3>This Week</h3>
+                        <div class="amount">₹8,450</div>
+                        <div class="subtext">↑ 12% from last week</div>
+                    </div>
+                </div>
+                
+                <div class="earnings-card">
+                    <i class="fas fa-calendar-month"></i>
+                    <div class="earnings-info">
+                        <h3>This Month</h3>
+                        <div class="amount">₹32,800</div>
+                        <div class="subtext">18 trips completed</div>
+                    </div>
+                </div>
+                
+                <div class="earnings-card">
+                    <i class="fas fa-chart-line"></i>
+                    <div class="earnings-info">
+                        <h3>Lifetime</h3>
+                        <div class="amount">₹2,45,600</div>
+                        <div class="subtext">Since Jan 2024</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Period Selector -->
+            <div class="period-selector">
+                <button class="period-btn active" onclick="changePeriod('week')">This Week</button>
+                <button class="period-btn" onclick="changePeriod('month')">This Month</button>
+                <button class="period-btn" onclick="changePeriod('year')">This Year</button>
+                <button class="period-btn" onclick="changePeriod('custom')">Custom Range</button>
+            </div>
+            
+            <!-- Earnings Chart -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3>Daily Earnings</h3>
+                    <div class="chart-legend">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: var(--primary);"></div>
+                            <span>Earnings</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #28a745;"></div>
+                            <span>Trips</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chart-placeholder" id="earnings-chart">
+                    <!-- Dynamic bars will be inserted by JavaScript -->
+                </div>
+            </div>
+            
+            <!-- Recent Transactions -->
+            <div class="earnings-table">
+                <h3>
+                    <i class="fas fa-history"></i>
+                    Recent Transactions
+                </h3>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Date & Time</th>
+                                <th>Ride ID</th>
+                                <th>Customer</th>
+                                <th>Distance</th>
+                                <th>Fare</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>15 Mar 2024, 09:30 AM</td>
+                                <td>#QC1234</td>
+                                <td>Rahul S.</td>
+                                <td>8.5 km</td>
+                                <td>₹450</td>
+                                <td><span class="badge-success">Completed</span></td>
+                            </tr>
+                            <tr>
+                                <td>14 Mar 2024, 06:15 PM</td>
+                                <td>#QC1230</td>
+                                <td>Priya M.</td>
+                                <td>5.2 km</td>
+                                <td>₹220</td>
+                                <td><span class="badge-success">Completed</span></td>
+                            </tr>
+                            <tr>
+                                <td>14 Mar 2024, 02:30 PM</td>
+                                <td>#QC1228</td>
+                                <td>Amit K.</td>
+                                <td>12.8 km</td>
+                                <td>₹580</td>
+                                <td><span class="badge-success">Completed</span></td>
+                            </tr>
+                            <tr>
+                                <td>13 Mar 2024, 08:45 PM</td>
+                                <td>#QC1225</td>
+                                <td>Neha G.</td>
+                                <td>3.5 km</td>
+                                <td>₹160</td>
+                                <td><span class="badge-success">Completed</span></td>
+                            </tr>
+                            <tr>
+                                <td>13 Mar 2024, 11:20 AM</td>
+                                <td>#QC1222</td>
+                                <td>Vikram S.</td>
+                                <td>15.2 km</td>
+                                <td>₹680</td>
+                                <td><span class="badge-success">Completed</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Payout Section -->
+            <div class="payout-section">
+                <div class="payout-info">
+                    <div>
+                        <h3>Available for Payout</h3>
+                        <div class="payout-amount">₹5,280</div>
+                    </div>
+                    <button class="btn-primary" onclick="requestPayout()">
+                        <i class="fas fa-money-bill-wave"></i> Request Payout
+                    </button>
+                </div>
+                
+                <div class="bank-details">
+                    <div class="bank-info">
+                        <h4>Bank Account</h4>
+                        <p>State Bank of India · **** **** 1234</p>
+                    </div>
+                    <button class="btn-outline" onclick="changeBank()">
+                        <i class="fas fa-pen"></i> Change
+                    </button>
+                </div>
+                
+                <div class="payout-history">
+                    <h4>Payout History</h4>
+                    
+                    <div class="payout-item">
+                        <div class="payout-date">
+                            <i class="fas fa-check-circle" style="color: #28a745;"></i>
+                            <div>
+                                <p><strong>12 Mar 2024</strong></p>
+                                <small>Transferred to bank</small>
+                            </div>
+                        </div>
+                        <div>
+                            <span class="payout-status">₹4,500</span>
+                        </div>
+                    </div>
+                    
+                    <div class="payout-item">
+                        <div class="payout-date">
+                            <i class="fas fa-check-circle" style="color: #28a745;"></i>
+                            <div>
+                                <p><strong>05 Mar 2024</strong></p>
+                                <small>Transferred to bank</small>
+                            </div>
+                        </div>
+                        <div>
+                            <span class="payout-status">₹6,200</span>
+                        </div>
+                    </div>
+                    
+                    <div class="payout-item">
+                        <div class="payout-date">
+                            <i class="fas fa-check-circle" style="color: #28a745;"></i>
+                            <div>
+                                <p><strong>27 Feb 2024</strong></p>
+                                <small>Transferred to bank</small>
+                            </div>
+                        </div>
+                        <div>
+                            <span class="payout-status">₹5,800</span>
+                        </div>
+                    </div>
+                    
+                    <div class="payout-item">
+                        <div class="payout-date">
+                            <i class="fas fa-clock" style="color: var(--primary);"></i>
+                            <div>
+                                <p><strong>20 Feb 2024</strong></p>
+                                <small>Processing</small>
+                            </div>
+                        </div>
+                        <div>
+                            <span class="payout-status">₹3,950</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer"></div>
+
+    <script src="../js/main.js"></script>
+    <script>
+        // Initialize chart on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            renderChart('week');
+        });
+        
+        function renderChart(period) {
+            const chart = document.getElementById('earnings-chart');
+            chart.innerHTML = '';
+            
+            const data = period === 'week' ? [450, 680, 520, 780, 890, 650, 920] : [12500, 14800, 16200, 15800];
+            const labels = period === 'week' ? ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] : ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
+            const trips = period === 'week' ? [3, 4, 3, 5, 6, 4, 5] : [12, 15, 16, 14];
+            
+            const maxEarning = Math.max(...data);
+            
+            data.forEach((value, index) => {
+                const barContainer = document.createElement('div');
+                barContainer.className = 'bar-container';
+                
+                const bar = document.createElement('div');
+                bar.className = 'bar';
+                bar.style.height = (value / maxEarning * 200) + 'px';
+                bar.setAttribute('data-amount', '₹' + value);
+                
+                const label = document.createElement('div');
+                label.className = 'bar-label';
+                label.textContent = labels[index];
+                
+                barContainer.appendChild(bar);
+                barContainer.appendChild(label);
+                chart.appendChild(barContainer);
+                
+                // Add trip indicator
+                const tripDot = document.createElement('div');
+                tripDot.style.cssText = `
+                    width: 6px;
+                    height: 6px;
+                    background: #28a745;
+                    border-radius: 50%;
+                    margin-top: 5px;
+                `;
+                barContainer.appendChild(tripDot);
+            });
+        }
+        
+        function changePeriod(period) {
+            document.querySelectorAll('.period-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            renderChart(period);
+            showNotification(`Showing ${period} earnings`, 'info');
+        }
+        
+        function toggleStatus() {
+            const button = event.target;
+            if (button.textContent === 'Go Offline') {
+                button.textContent = 'Go Online';
+                button.classList.remove('btn-primary');
+                button.classList.add('btn-outline');
+                showNotification('You are now offline', 'info');
+            } else {
+                button.textContent = 'Go Offline';
+                button.classList.remove('btn-outline');
+                button.classList.add('btn-primary');
+                showNotification('You are now online', 'success');
+            }
+        }
+        
+        function requestPayout() {
+            const amount = document.querySelector('.payout-amount').textContent;
+            if (confirm(`Request payout of ${amount} to your bank account?`)) {
+                showNotification('Payout requested successfully!', 'success');
+                setTimeout(() => {
+                    document.querySelector('.payout-amount').textContent = '₹0';
+                }, 2000);
+            }
+        }
+        
+        function changeBank() {
+            showNotification('Bank details update feature coming soon', 'info');
+        }
+    </script>
+</body>
+</html>

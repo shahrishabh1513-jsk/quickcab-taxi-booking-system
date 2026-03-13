@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Users - QuickCab Admin</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .search-bar {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            width: 300px;
+        }
+        
+        .search-bar i {
+            color: var(--gray);
+        }
+        
+        .search-bar input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 0.95rem;
+        }
+        
+        .filter-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .filter-tab {
+            padding: 0.5rem 1.5rem;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .filter-tab:hover,
+        .filter-tab.active {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .users-table-container {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .user-row {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+            transition: background 0.3s;
+        }
+        
+        .user-row:hover {
+            background: var(--light);
+        }
+        
+        .user-row:last-child {
+            border-bottom: none;
+        }
+        
+        .user-cell {
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 1rem;
+        }
+        
+        .user-status {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-inactive {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .action-btn {
+            padding: 0.3rem 0.8rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 0.2rem;
+        }
+        
+        .action-btn.edit {
+            background: var(--primary);
+            color: var(--dark);
+        }
+        
+        .action-btn.delete {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+        
+        .page-btn {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        
+        .page-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar"></div>
+
+    <div class="dashboard-container">
+        <!-- Admin Sidebar -->
+        <div class="dashboard-sidebar admin-sidebar">
+            <div class="user-profile">
+                <i class="fas fa-user-shield"></i>
+                <h4>Admin</h4>
+                <p>admin@quickcab.com</p>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="admin-dashboard.html"><i class="fas fa-dashboard"></i> Dashboard</a></li>
+                <li class="active"><a href="manage-users.html"><i class="fas fa-users"></i> Manage Users</a></li>
+                <li><a href="manage-drivers.html"><i class="fas fa-id-card"></i> Manage Drivers</a></li>
+                <li><a href="manage-bookings.html"><i class="fas fa-book"></i> Manage Bookings</a></li>
+                <li><a href="manage-cars.html"><i class="fas fa-car"></i> Manage Cars</a></li>
+                <li><a href="reports.html"><i class="fas fa-chart-line"></i> Reports</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="dashboard-main">
+            <div class="admin-header">
+                <h2>Manage Users</h2>
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search users..." id="searchUser">
+                </div>
+            </div>
+            
+            <!-- Filter Tabs -->
+            <div class="filter-tabs">
+                <button class="filter-tab active" onclick="filterUsers('all')">All Users</button>
+                <button class="filter-tab" onclick="filterUsers('active')">Active</button>
+                <button class="filter-tab" onclick="filterUsers('inactive')">Inactive</button>
+                <button class="filter-tab" onclick="filterUsers('new')">New (Today)</button>
+            </div>
+            
+            <!-- Users Table -->
+            <div class="users-table-container">
+                <div style="display: flex; background: var(--light); padding: 1rem; border-radius: 8px; margin-bottom: 0.5rem; font-weight: 600;">
+                    <div style="flex: 2;">User</div>
+                    <div style="flex: 1;">Email</div>
+                    <div style="flex: 1;">Phone</div>
+                    <div style="flex: 1;">Joined</div>
+                    <div style="flex: 1;">Rides</div>
+                    <div style="flex: 1;">Status</div>
+                    <div style="flex: 1;">Actions</div>
+                </div>
+                
+                <!-- User Row 1 -->
+                <div class="user-row">
+                    <div style="flex: 2; display: flex; align-items: center;">
+                        <img src="../images/user-avatar.jpg" alt="User" class="user-avatar">
+                        <div>
+                            <strong>Rahul Sharma</strong>
+                        </div>
+                    </div>
+                    <div style="flex: 1;">rahul@email.com</div>
+                    <div style="flex: 1;">9876543210</div>
+                    <div style="flex: 1;">15 Mar 2024</div>
+                    <div style="flex: 1;">24</div>
+                    <div style="flex: 1;"><span class="user-status status-active">Active</span></div>
+                    <div style="flex: 1;">
+                        <button class="action-btn edit" onclick="editUser(1)"><i class="fas fa-edit"></i></button>
+                        <button class="action-btn delete" onclick="deleteUser(1)"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+                
+                <!-- User Row 2 -->
+                <div class="user-row">
+                    <div style="flex: 2; display: flex; align-items: center;">
+                        <img src="../images/user-avatar.jpg" alt="User" class="user-avatar">
+                        <div>
+                            <strong>Priya Singh</strong>
+                        </div>
+                    </div>
+                    <div style="flex: 1;">priya@email.com</div>
+                    <div style="flex: 1;">8765432109</div>
+                    <div style="flex: 1;">14 Mar 2024</div>
+                    <div style="flex: 1;">18</div>
+                    <div style="flex: 1;"><span class="user-status status-active">Active</span></div>
+                    <div style="flex: 1;">
+                        <button class="action-btn edit" onclick="editUser(2)"><i class="fas fa-edit"></i></button>
+                        <button class="action-btn delete" onclick="deleteUser(2)"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+                
+                <!-- User Row 3 -->
+                <div class="user-row">
+                    <div style="flex: 2; display: flex; align-items: center;">
+                        <img src="../images/user-avatar.jpg" alt="User" class="user-avatar">
+                        <div>
+                            <strong>Amit Kumar</strong>
+                        </div>
+                    </div>
+                    <div style="flex: 1;">amit@email.com</div>
+                    <div style="flex: 1;">7654321098</div>
+                    <div style="flex: 1;">12 Mar 2024</div>
+                    <div style="flex: 1;">32</div>
+                    <div style="flex: 1;"><span class="user-status status-active">Active</span></div>
+                    <div style="flex: 1;">
+                        <button class="action-btn edit" onclick="editUser(3)"><i class="fas fa-edit"></i></button>
+                        <button class="action-btn delete" onclick="deleteUser(3)"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+                
+                <!-- User Row 4 -->
+                <div class="user-row">
+                    <div style="flex: 2; display: flex; align-items: center;">
+                        <img src="../images/user-avatar.jpg" alt="User" class="user-avatar">
+                        <div>
+                            <strong>Neha Gupta</strong>
+                        </div>
+                    </div>
+                    <div style="flex: 1;">neha@email.com</div>
+                    <div style="flex: 1;">6543210987</div>
+                    <div style="flex: 1;">10 Mar 2024</div>
+                    <div style="flex: 1;">8</div>
+                    <div style="flex: 1;"><span class="user-status status-inactive">Inactive</span></div>
+                    <div style="flex: 1;">
+                        <button class="action-btn edit" onclick="editUser(4)"><i class="fas fa-edit"></i></button>
+                        <button class="action-btn delete" onclick="deleteUser(4)"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+                
+                <!-- User Row 5 -->
+                <div class="user-row">
+                    <div style="flex: 2; display: flex; align-items: center;">
+                        <img src="../images/user-avatar.jpg" alt="User" class="user-avatar">
+                        <div>
+                            <strong>Vikram Singh</strong>
+                        </div>
+                    </div>
+                    <div style="flex: 1;">vikram@email.com</div>
+                    <div style="flex: 1;">5432109876</div>
+                    <div style="flex: 1;">08 Mar 2024</div>
+                    <div style="flex: 1;">15</div>
+                    <div style="flex: 1;"><span class="user-status status-active">Active</span></div>
+                    <div style="flex: 1;">
+                        <button class="action-btn edit" onclick="editUser(5)"><i class="fas fa-edit"></i></button>
+                        <button class="action-btn delete" onclick="deleteUser(5)"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="pagination">
+                <button class="page-btn"><i class="fas fa-chevron-left"></i></button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn">4</button>
+                <button class="page-btn">5</button>
+                <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer"></div>
+
+    <script src="../js/main.js"></script>
+    <script>
+        function filterUsers(type) {
+            document.querySelectorAll('.filter-tab').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            showNotification(`Filtering ${type} users`, 'info');
+        }
+        
+        function editUser(id) {
+            showNotification(`Editing user ${id}`, 'info');
+        }
+        
+        function deleteUser(id) {
+            if (confirm(`Are you sure you want to delete user ${id}?`)) {
+                showNotification(`User ${id} deleted`, 'success');
+            }
+        }
+        
+        document.getElementById('searchUser').addEventListener('keyup', function(e) {
+            showNotification(`Searching for: ${e.target.value}`, 'info');
+        });
+    </script>
+</body>
+</html>

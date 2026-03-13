@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ride Requests - QuickCab</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .requests-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .driver-status-toggle {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #28a745;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(40, 167, 69, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(40, 167, 69, 0);
+            }
+        }
+        
+        .ride-request-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--primary);
+            transition: transform 0.3s;
+        }
+        
+        .ride-request-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .request-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .request-time {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .request-badge {
+            background: var(--primary);
+            color: var(--dark);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .request-details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .detail-item i {
+            width: 30px;
+            height: 30px;
+            background: var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+        }
+        
+        .detail-item h4 {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 0.2rem;
+        }
+        
+        .detail-item p {
+            font-weight: 600;
+        }
+        
+        .fare-estimate {
+            background: var(--light);
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+        
+        .fare-estimate strong {
+            font-size: 1.2rem;
+            color: var(--dark);
+        }
+        
+        .request-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .no-requests {
+            text-align: center;
+            padding: 4rem;
+            background: white;
+            border-radius: 15px;
+        }
+        
+        .no-requests i {
+            font-size: 4rem;
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+        
+        .no-requests h3 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .no-requests p {
+            color: var(--gray);
+        }
+        
+        .accepted-ride {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 2rem;
+            border-left: 4px solid #28a745;
+        }
+        
+        .accepted-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .accepted-header h3 {
+            color: #28a745;
+        }
+        
+        .ride-progress {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 2rem 0;
+            position: relative;
+        }
+        
+        .ride-progress::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #eee;
+            z-index: 1;
+        }
+        
+        .progress-step {
+            position: relative;
+            z-index: 2;
+            background: white;
+            padding: 0 1rem;
+            text-align: center;
+        }
+        
+        .progress-step .step-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.5rem;
+            color: var(--gray);
+        }
+        
+        .progress-step.active .step-icon {
+            background: var(--primary);
+            color: var(--dark);
+        }
+        
+        .progress-step.completed .step-icon {
+            background: #28a745;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar"></div>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="dashboard-sidebar">
+            <div class="user-profile">
+                <img src="../images/driver-avatar.jpg" alt="Driver">
+                <h4>Rajesh Kumar</h4>
+                <p>rajesh.driver@email.com</p>
+                <span class="badge online">Online</span>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="driver-dashboard.html"><i class="fas fa-dashboard"></i> Dashboard</a></li>
+                <li class="active"><a href="ride-requests.html"><i class="fas fa-clock"></i> Ride Requests</a></li>
+                <li><a href="earnings.html"><i class="fas fa-rupee-sign"></i> Earnings</a></li>
+                <li><a href="driver-profile.html"><i class="fas fa-user"></i> Profile</a></li>
+            </ul>
+            <div class="driver-status">
+                <button class="btn-primary" onclick="toggleStatus()">Go Offline</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="dashboard-main">
+            <div class="requests-header">
+                <h2>Ride Requests</h2>
+                <div class="driver-status-toggle">
+                    <div class="status-indicator">
+                        <span class="status-dot"></span>
+                        <span>Online - Receiving requests</span>
+                    </div>
+                    <button class="btn-small" onclick="refreshRequests()">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Active Ride (if any) -->
+            <div class="accepted-ride">
+                <div class="accepted-header">
+                    <h3><i class="fas fa-check-circle"></i> Current Ride</h3>
+                    <span class="request-time">Started: 10:15 AM</span>
+                </div>
+                
+                <div class="request-details-grid">
+                    <div class="detail-item">
+                        <i class="fas fa-user"></i>
+                        <div>
+                            <h4>Customer</h4>
+                            <p>Rahul Sharma</p>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-circle"></i>
+                        <div>
+                            <h4>Pickup</h4>
+                            <p>Indiranagar</p>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-map-pin"></i>
+                        <div>
+                            <h4>Drop</h4>
+                            <p>Airport</p>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-tag"></i>
+                        <div>
+                            <h4>Fare</h4>
+                            <p>₹450</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Ride Progress -->
+                <div class="ride-progress">
+                    <div class="progress-step completed">
+                        <div class="step-icon"><i class="fas fa-check"></i></div>
+                        <span>Accepted</span>
+                    </div>
+                    <div class="progress-step active">
+                        <div class="step-icon"><i class="fas fa-car"></i></div>
+                        <span>Reached</span>
+                    </div>
+                    <div class="progress-step">
+                        <div class="step-icon"><i class="fas fa-flag-checkered"></i></div>
+                        <span>Completed</span>
+                    </div>
+                </div>
+                
+                <div class="request-actions">
+                    <button class="btn-primary" onclick="startRide()">Start Ride</button>
+                    <button class="btn-outline" onclick="contactCustomer()">Contact Customer</button>
+                </div>
+            </div>
+            
+            <!-- New Ride Requests -->
+            <h3 style="margin: 2rem 0 1rem;">New Requests</h3>
+            
+            <!-- Request 1 -->
+            <div class="ride-request-card">
+                <div class="request-header">
+                    <span class="request-time"><i class="fas fa-clock"></i> 2 minutes ago</span>
+                    <span class="request-badge">Mini · 4 seats</span>
+                </div>
+                
+                <div class="request-details-grid">
+                    <div class="detail-item">
+                        <i class="fas fa-user"></i>
+                        <div>
+                            <h4>Customer</h4>
+                            <p>Priya Singh · 4.8 ⭐</p>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-circle"></i>
+                        <div>
+                            <h4>Pickup</h4>
+                            <p>Koramangala, Bangalore</p>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-map-pin"></i>
+                        <div>
+                            <h4>Drop</h4>
+                            <p>MG Road, Bangalore</p>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-route"></i>
+                        <div>
+                            <h4>Distance</h4>
+                            <p>5.2 km</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="fare-estimate">
+                    <strong>Estimated Fare: ₹220</strong> (including base fare)
+                </div>
+                
+                <div class="request-actions">
+                    <button class="btn-primary" onclick="acceptRide('1')">Accept Ride</button>
+                    <button class="btn-outline" onclick="declineRide('1')">Decline</button>
+                </div>
+            </div>
+            
+            <!-- Request 2 -->
+            <div class="ride-request-card">
+                <div class="request-header">
+                    <span class="request-time"><i class="fas fa-clock"></i> 5 minutes ago</span>
+                    <span class="request-badge">SUV · 6 seats</span>
+                </div>
+                
+                <div class="request-details-grid">
+                    <div class="detail-item">
+                        <i class="fas fa-user"></i>
+                        <div>
+                            <h4>Customer</h4>
+                            <p>Amit Kumar · 4.9 ⭐</p>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-circle"></i>
+                        <div>
+                            <h4>Pickup</h4>
+                            <p>Whitefield, Bangalore</p>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-map-pin"></i>
+                        <div>
+                            <h4>Drop</h4>
+                            <p>Electronic City, Bangalore</p>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-route"></i>
+                        <div>
+                            <h4>Distance</h4>
+                            <p>18.5 km</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="fare-estimate">
+                    <strong>Estimated Fare: ₹680</strong> (including base fare)
+                </div>
+                
+                <div class="request-actions">
+                    <button class="btn-primary" onclick="acceptRide('2')">Accept Ride</button>
+                    <button class="btn-outline" onclick="declineRide('2')">Decline</button>
+                </div>
+            </div>
+            
+            <!-- Request 3 -->
+            <div class="ride-request-card">
+                <div class="request-header">
+                    <span class="request-time"><i class="fas fa-clock"></i> 8 minutes ago</span>
+                    <span class="request-badge">Sedan · 4 seats</span>
+                </div>
+                
+                <div class="request-details-grid">
+                    <div class="detail-item">
+                        <i class="fas fa-user"></i>
+                        <div>
+                            <h4>Customer</h4>
+                            <p>Neha Gupta · 4.7 ⭐</p>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-circle"></i>
+                        <div>
+                            <h4>Pickup</h4>
+                            <p>HSR Layout, Bangalore</p>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-map-pin"></i>
+                        <div>
+                            <h4>Drop</h4>
+                            <p>Forum Mall, Bangalore</p>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-route"></i>
+                        <div>
+                            <h4>Distance</h4>
+                            <p>3.8 km</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="fare-estimate">
+                    <strong>Estimated Fare: ₹180</strong> (including base fare)
+                </div>
+                
+                <div class="request-actions">
+                    <button class="btn-primary" onclick="acceptRide('3')">Accept Ride</button>
+                    <button class="btn-outline" onclick="declineRide('3')">Decline</button>
+                </div>
+            </div>
+            
+            <!-- No Requests State (hidden by default) -->
+            <div class="no-requests" style="display: none;">
+                <i class="fas fa-car"></i>
+                <h3>No ride requests</h3>
+                <p>Stay online to receive new ride requests</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer"></div>
+
+    <script src="../js/main.js"></script>
+    <script>
+        function toggleStatus() {
+            const button = event.target;
+            const statusIndicator = document.querySelector('.status-indicator');
+            const statusDot = document.querySelector('.status-dot');
+            
+            if (button.textContent === 'Go Offline') {
+                button.textContent = 'Go Online';
+                button.classList.remove('btn-primary');
+                button.classList.add('btn-outline');
+                statusIndicator.innerHTML = '<span class="status-dot" style="background: #dc3545;"></span><span>Offline - Not receiving requests</span>';
+                showNotification('You are now offline', 'info');
+            } else {
+                button.textContent = 'Go Offline';
+                button.classList.remove('btn-outline');
+                button.classList.add('btn-primary');
+                statusIndicator.innerHTML = '<span class="status-dot"></span><span>Online - Receiving requests</span>';
+                showNotification('You are now online', 'success');
+            }
+        }
+        
+        function refreshRequests() {
+            showNotification('Refreshing requests...', 'info');
+            setTimeout(() => {
+                showNotification('Requests updated', 'success');
+            }, 1000);
+        }
+        
+        function acceptRide(id) {
+            showNotification('Ride accepted!', 'success');
+            setTimeout(() => {
+                window.location.reload();
+            }, 1500);
+        }
+        
+        function declineRide(id) {
+            if (confirm('Are you sure you want to decline this ride?')) {
+                event.target.closest('.ride-request-card').remove();
+                showNotification('Ride declined', 'info');
+            }
+        }
+        
+        function startRide() {
+            showNotification('Ride started!', 'success');
+        }
+        
+        function contactCustomer() {
+            showNotification('Calling customer...', 'info');
+        }
+    </script>
+</body>
+</html>

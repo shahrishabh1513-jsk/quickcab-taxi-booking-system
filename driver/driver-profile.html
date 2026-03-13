@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Profile - QuickCab</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .profile-header {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .profile-avatar {
+            position: relative;
+        }
+        
+        .profile-avatar img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary);
+        }
+        
+        .verification-badge {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: #28a745;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .profile-title h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .rating-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: var(--light);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            margin: 0.5rem 0;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .stat-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .profile-tabs {
+            display: flex;
+            gap: 1rem;
+            border-bottom: 2px solid #eee;
+            margin-bottom: 2rem;
+        }
+        
+        .profile-tab {
+            padding: 1rem 2rem;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--gray);
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+        }
+        
+        .profile-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        
+        .tab-panel {
+            display: none;
+        }
+        
+        .tab-panel.active {
+            display: block;
+        }
+        
+        .info-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--light);
+            border-radius: 10px;
+        }
+        
+        .info-item i {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+        }
+        
+        .info-content h4 {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 0.2rem;
+        }
+        
+        .info-content p {
+            font-weight: 600;
+        }
+        
+        .document-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .document-card {
+            background: var(--light);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .document-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .document-card h4 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .document-status {
+            display: inline-block;
+            padding: 0.2rem 1rem;
+            background: #d4edda;
+            color: #155724;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        
+        .vehicle-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+        }
+        
+        .vehicle-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .vehicle-type {
+            background: rgba(255,255,255,0.2);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+        }
+        
+        .vehicle-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .vehicle-detail {
+            text-align: center;
+        }
+        
+        .vehicle-detail i {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+        
+        .reviews-section {
+            margin-top: 2rem;
+        }
+        
+        .review-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .reviewer-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .reviewer-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+        
+        .review-rating {
+            color: var(--primary);
+        }
+        
+        .review-date {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar"></div>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="dashboard-sidebar">
+            <div class="user-profile">
+                <img src="../images/driver-avatar.jpg" alt="Driver">
+                <h4>Rajesh Kumar</h4>
+                <p>rajesh.driver@email.com</p>
+                <span class="badge online">Online</span>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="driver-dashboard.html"><i class="fas fa-dashboard"></i> Dashboard</a></li>
+                <li><a href="ride-requests.html"><i class="fas fa-clock"></i> Ride Requests</a></li>
+                <li><a href="earnings.html"><i class="fas fa-rupee-sign"></i> Earnings</a></li>
+                <li class="active"><a href="driver-profile.html"><i class="fas fa-user"></i> Profile</a></li>
+            </ul>
+            <div class="driver-status">
+                <button class="btn-primary" onclick="toggleStatus()">Go Offline</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="dashboard-main">
+            <!-- Profile Header -->
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <img src="../images/driver-avatar.jpg" alt="Driver Photo">
+                    <div class="verification-badge">
+                        <i class="fas fa-check"></i>
+                    </div>
+                </div>
+                <div class="profile-info">
+                    <div class="profile-title">
+                        <h2>Rajesh Kumar</h2>
+                        <div class="rating-badge">
+                            <i class="fas fa-star" style="color: var(--primary);"></i>
+                            <span>4.8</span>
+                            <span>(342 rides)</span>
+                        </div>
+                    </div>
+                    <p><i class="fas fa-map-marker-alt"></i> Bangalore, Karnataka</p>
+                    <p><i class="fas fa-car"></i> Mini · Swift · RJ-14-AB-1234</p>
+                    <p><i class="fas fa-calendar"></i> Member since Jan 2024</p>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value">98%</div>
+                            <div class="stat-label">Acceptance</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">342</div>
+                            <div class="stat-label">Total Rides</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">4.8</div>
+                            <div class="stat-label">Rating</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Profile Tabs -->
+            <div class="profile-tabs">
+                <div class="profile-tab active" onclick="switchTab('personal')">Personal Info</div>
+                <div class="profile-tab" onclick="switchTab('documents')">Documents</div>
+                <div class="profile-tab" onclick="switchTab('vehicle')">Vehicle</div>
+                <div class="profile-tab" onclick="switchTab('reviews')">Reviews</div>
+            </div>
+            
+            <!-- Personal Info Tab -->
+            <div id="personal-tab" class="tab-panel active">
+                <div class="info-card">
+                    <h3 style="margin-bottom: 1.5rem;">Personal Information</h3>
+                    
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <i class="fas fa-user"></i>
+                            <div class="info-content">
+                                <h4>Full Name</h4>
+                                <p>Rajesh Kumar Singh</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <div class="info-content">
+                                <h4>Email Address</h4>
+                                <p>rajesh.driver@email.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <div class="info-content">
+                                <h4>Phone Number</h4>
+                                <p>+91 98765 43210</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <i class="fas fa-calendar"></i>
+                            <div class="info-content">
+                                <h4>Date of Birth</h4>
+                                <p>15 Aug 1985</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="info-content">
+                                <h4>Address</h4>
+                                <p>123, Indiranagar, Bangalore</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <i class="fas fa-language"></i>
+                            <div class="info-content">
+                                <h4>Languages</h4>
+                                <p>Hindi, English, Kannada</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn-primary" style="margin-top: 1.5rem;" onclick="editProfile()">
+                        <i class="fas fa-edit"></i> Edit Profile
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Documents Tab -->
+            <div id="documents-tab" class="tab-panel">
+                <div class="info-card">
+                    <h3 style="margin-bottom: 1.5rem;">Verified Documents</h3>
+                    
+                    <div class="document-grid">
+                        <div class="document-card">
+                            <i class="fas fa-id-card"></i>
+                            <h4>Driver's License</h4>
+                            <p>DL-1234-5678-9012</p>
+                            <p class="document-status">Verified</p>
+                            <small>Expires: Dec 2025</small>
+                        </div>
+                        
+                        <div class="document-card">
+                            <i class="fas fa-id-card"></i>
+                            <h4>Aadhar Card</h4>
+                            <p>XXXX-XXXX-1234</p>
+                            <p class="document-status">Verified</p>
+                        </div>
+                        
+                        <div class="document-card">
+                            <i class="fas fa-file-alt"></i>
+                            <h4>RC Book</h4>
+                            <p>KA-01-AB-1234</p>
+                            <p class="document-status">Verified</p>
+                        </div>
+                        
+                        <div class="document-card">
+                            <i class="fas fa-shield-alt"></i>
+                            <h4>Insurance</h4>
+                            <p>Valid till Sep 2024</p>
+                            <p class="document-status">Verified</p>
+                        </div>
+                        
+                        <div class="document-card">
+                            <i class="fas fa-file"></i>
+                            <h4>Police Verification</h4>
+                            <p>PV-2024-001234</p>
+                            <p class="document-status">Verified</p>
+                        </div>
+                        
+                        <div class="document-card">
+                            <i class="fas fa-file"></i>
+                            <h4>Background Check</h4>
+                            <p>Completed</p>
+                            <p class="document-status">Verified</p>
+                        </div>
+                    </div>
+                    
+                    <button class="btn-outline" style="margin-top: 1.5rem;" onclick="uploadDocument()">
+                        <i class="fas fa-upload"></i> Upload New Document
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Vehicle Tab -->
+            <div id="vehicle-tab" class="tab-panel">
+                <div class="vehicle-card">
+                    <div class="vehicle-header">
+                        <h3>Current Vehicle</h3>
+                        <span class="vehicle-type">Mini</span>
+                    </div>
+                    
+                    <p><i class="fas fa-car"></i> Maruti Swift · White</p>
+                    <p><i class="fas fa-hashtag"></i> Registration: RJ-14-AB-1234</p>
+                    
+                    <div class="vehicle-details">
+                        <div class="vehicle-detail">
+                            <i class="fas fa-users"></i>
+                            <p>4 Seats</p>
+                        </div>
+                        <div class="vehicle-detail">
+                            <i class="fas fa-snowflake"></i>
+                            <p>AC</p>
+                        </div>
+                        <div class="vehicle-detail">
+                            <i class="fas fa-gas-pump"></i>
+                            <p>Petrol</p>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 1rem;">
+                        <p><i class="fas fa-calendar"></i> Model: 2022</p>
+                        <p><i class="fas fa-road"></i> Fuel Efficiency: 18 km/l</p>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3 style="margin-bottom: 1rem;">Vehicle Documents</h3>
+                    
+                    <div class="info-item" style="margin-bottom: 1rem;">
+                        <i class="fas fa-file-alt"></i>
+                        <div class="info-content">
+                            <h4>Registration Certificate</h4>
+                            <p>Valid till Dec 2025</p>
+                        </div>
+                        <span class="document-status">Verified</span>
+                    </div>
+                    
+                    <div class="info-item" style="margin-bottom: 1rem;">
+                        <i class="fas fa-shield-alt"></i>
+                        <div class="info-content">
+                            <h4>Insurance</h4>
+                            <p>Valid till Sep 2024</p>
+                        </div>
+                        <span class="document-status">Verified</span>
+                    </div>
+                    
+                    <div class="info-item">
+                        <i class="fas fa-clipboard-check"></i>
+                        <div class="info-content">
+                            <h4>Fitness Certificate</h4>
+                            <p>Valid till Jun 2024</p>
+                        </div>
+                        <span class="document-status">Verified</span>
+                    </div>
+                    
+                    <button class="btn-primary" style="margin-top: 1.5rem;" onclick="updateVehicle()">
+                        <i class="fas fa-edit"></i> Update Vehicle Details
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Reviews Tab -->
+            <div id="reviews-tab" class="tab-panel">
+                <div class="reviews-section">
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <img src="../images/user-avatar.jpg" alt="User">
+                                <div>
+                                    <h4>Rahul Sharma</h4>
+                                    <div class="review-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="review-date">2 days ago</div>
+                        </div>
+                        <p>Great driver! Very punctual and drove safely. Car was clean and well maintained.</p>
+                    </div>
+                    
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <img src="../images/user-avatar.jpg" alt="User">
+                                <div>
+                                    <h4>Priya Singh</h4>
+                                    <div class="review-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="review-date">5 days ago</div>
+                        </div>
+                        <p>Very professional and friendly. Helped with luggage and took the fastest route.</p>
+                    </div>
+                    
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <img src="../images/user-avatar.jpg" alt="User">
+                                <div>
+                                    <h4>Amit Kumar</h4>
+                                    <div class="review-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="review-date">1 week ago</div>
+                        </div>
+                        <p>Smooth ride, reached destination on time. Would definitely book again.</p>
+                    </div>
+                    
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <img src="../images/user-avatar.jpg" alt="User">
+                                <div>
+                                    <h4>Neha Gupta</h4>
+                                    <div class="review-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="review-date">2 weeks ago</div>
+                        </div>
+                        <p>Good experience overall. Driver was polite and helpful.</p>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 2rem;">
+                        <button class="btn-outline" onclick="loadMoreReviews()">
+                            Load More Reviews
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer"></div>
+
+    <script src="../js/main.js"></script>
+    <script>
+        function switchTab(tab) {
+            document.querySelectorAll('.profile-tab').forEach(t => {
+                t.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-panel').forEach(p => {
+                p.classList.remove('active');
+            });
+            
+            event.target.classList.add('active');
+            document.getElementById(`${tab}-tab`).classList.add('active');
+        }
+        
+        function toggleStatus() {
+            const button = event.target;
+            if (button.textContent === 'Go Offline') {
+                button.textContent = 'Go Online';
+                button.classList.remove('btn-primary');
+                button.classList.add('btn-outline');
+                showNotification('You are now offline', 'info');
+            } else {
+                button.textContent = 'Go Offline';
+                button.classList.remove('btn-outline');
+                button.classList.add('btn-primary');
+                showNotification('You are now online', 'success');
+            }
+        }
+        
+        function editProfile() {
+            showNotification('Profile edit feature coming soon', 'info');
+        }
+        
+        function uploadDocument() {
+            showNotification('Document upload feature coming soon', 'info');
+        }
+        
+        function updateVehicle() {
+            showNotification('Vehicle update feature coming soon', 'info');
+        }
+        
+        function loadMoreReviews() {
+            showNotification('Loading more reviews...', 'info');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - QuickCab</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* About Page Specific Styles */
+        .about-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 6rem 0;
+            text-align: center;
+        }
+        
+        .about-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .about-hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        .mission-section {
+            padding: 5rem 0;
+            background: white;
+        }
+        
+        .mission-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .mission-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .mission-content h2 span {
+            color: var(--primary);
+        }
+        
+        .mission-content p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-item h3 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-item p {
+            color: var(--gray);
+            font-size: 1rem;
+        }
+        
+        .values-section {
+            padding: 5rem 0;
+            background: var(--light);
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .value-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .value-card i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .value-card h3 {
+            margin-bottom: 1rem;
+        }
+        
+        .value-card p {
+            color: var(--gray);
+        }
+        
+        .team-section {
+            padding: 5rem 0;
+            background: white;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .team-card {
+            background: var(--light);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .team-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .team-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        
+        .team-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .team-info h3 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .team-info p {
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+        
+        .team-social {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .team-social a {
+            color: var(--gray);
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        
+        .team-social a:hover {
+            color: var(--primary);
+        }
+        
+        @media (max-width: 768px) {
+            .mission-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar"></div>
+
+    <!-- About Hero -->
+    <section class="about-hero">
+        <div class="container">
+            <h1>About <span style="color: var(--primary);">QuickCab</span></h1>
+            <p>We're on a mission to revolutionize urban transportation</p>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="mission-section">
+        <div class="container">
+            <div class="mission-grid">
+                <div class="mission-content">
+                    <h2>Our <span>Mission</span></h2>
+                    <p>QuickCab was founded in 2020 with a simple idea: to make city transportation reliable, affordable, and accessible for everyone. What started as a small startup in Bangalore has now grown into one of India's most trusted ride-hailing platforms.</p>
+                    <p>We believe that everyone deserves a safe and comfortable ride, whether it's a quick trip across town or a long journey to another city. Our technology connects millions of riders with thousands of driver partners, creating economic opportunities and making cities more accessible.</p>
+                    <p>Today, we operate in 25+ cities across India, with a fleet of over 10,000 vehicles and a community of 50,000+ driver partners. But we're just getting started.</p>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <h3>25+</h3>
+                            <p>Cities</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>10K+</h3>
+                            <p>Vehicles</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>50K+</h3>
+                            <p>Drivers</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mission-image">
+                    <img src="images/about-mission.jpg" alt="Our Mission" style="width: 100%; border-radius: 10px;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values-section">
+        <div class="container">
+            <h2 class="section-title">Our <span>Core Values</span></h2>
+            <div class="values-grid">
+                <div class="value-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Safety First</h3>
+                    <p>Every ride is tracked and every driver is verified to ensure your safety</p>
+                </div>
+                <div class="value-card">
+                    <i class="fas fa-heart"></i>
+                    <h3>Customer First</h3>
+                    <p>Your satisfaction is our top priority, 24/7 support available</p>
+                </div>
+                <div class="value-card">
+                    <i class="fas fa-hand-holding-heart"></i>
+                    <h3>Driver Respect</h3>
+                    <p>We treat our driver partners with dignity and fair compensation</p>
+                </div>
+                <div class="value-card">
+                    <i class="fas fa-leaf"></i>
+                    <h3>Sustainability</h3>
+                    <p>Committed to reducing our carbon footprint with electric vehicles</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <div class="container">
+            <h2 class="section-title">Meet Our <span>Leadership</span></h2>
+            <div class="team-grid">
+                <div class="team-card">
+                    <img src="images/team1.jpg" alt="CEO">
+                    <div class="team-info">
+                        <h3>Rajesh Mehta</h3>
+                        <p>Founder & CEO</p>
+                        <div class="team-social">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <img src="images/team2.jpg" alt="CTO">
+                    <div class="team-info">
+                        <h3>Priya Sharma</h3>
+                        <p>Chief Technology Officer</p>
+                        <div class="team-social">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <img src="images/team3.jpg" alt="COO">
+                    <div class="team-info">
+                        <h3>Vikram Singh</h3>
+                        <p>Chief Operating Officer</p>
+                        <div class="team-social">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer"></div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
