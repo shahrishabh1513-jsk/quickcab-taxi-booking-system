@@ -97,10 +97,9 @@ Development Tools
 
 ---
 
-# 📸 Project Preview
+# 📸 Live Preview
 
-(Add screenshots of your website here)
-
+👉https://shahrishabh1513-jsk.github.io/quickcab-taxi-booking-system/
 ---
 
 # 👨‍💻 Author
