@@ -1,5 +1,5 @@
 /* =========================================================
-   RAAHI — auth.js
+   RT QuickCab  — auth.js
    Front-end demo authentication (no backend attached).
    Stores a lightweight session in localStorage so the UI
    flow feels complete; swap the resolve() bodies for real
@@ -24,7 +24,7 @@ function mockLogin(email, password) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (email && password.length >= 4) {
-        localStorage.setItem('raahi_user', JSON.stringify({ name: email.split('@')[0], email }));
+        localStorage.setItem('RT QuickCab _user', JSON.stringify({ name: email.split('@')[0], email }));
         resolve({ success: true });
       } else {
         reject({ message: 'Please enter a valid email and a password of at least 4 characters.' });
@@ -37,7 +37,7 @@ function mockRegister(data) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (data.name && data.email && data.password) {
-        localStorage.setItem('raahi_user', JSON.stringify({ name: data.name, email: data.email }));
+        localStorage.setItem('RT QuickCab _user', JSON.stringify({ name: data.name, email: data.email }));
         resolve({ success: true });
       } else {
         reject({ message: 'Please fill in all required fields.' });

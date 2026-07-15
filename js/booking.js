@@ -1,5 +1,5 @@
 /* =========================================================
-   RAAHI — booking.js
+   RT QuickCab  — booking.js
    Live map, geocoding, routing, fare & payment flow.
    Safe to include on every page — it no-ops if the relevant
    elements aren't present.

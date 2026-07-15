@@ -1,5 +1,5 @@
 /* =========================================================
-   RAAHI — main.js
+   RT QuickCab  — main.js
    Shared behaviour used across every page
    ========================================================= */
 
