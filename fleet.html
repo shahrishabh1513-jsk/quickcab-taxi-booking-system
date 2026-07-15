@@ -1,105 +1,220 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Fleet - QuickCab</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/navbar.css">
-    <link rel="stylesheet" href="css/responsive.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book a Ride — Raahi Vadodara</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/navbar.css">
+<link rel="stylesheet" href="css/booking.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 <body>
-    <div id="navbar"></div>
 
-    <section class="fleet-page">
-        <div class="container">
-            <h1 class="page-title">Our <span>Fleet</span></h1>
-            <p class="page-subtitle">Choose from our wide range of vehicles</p>
+<header>
+  <div class="nav-wrap">
+    <a href="index.html" class="brand"><span class="mark"><i class="fas fa-taxi"></i></span><span>Raahi<small>VADODARA · EST. 2026</small></span></a>
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="book-ride.html" class="active">Book Ride</a></li>
+      <li><a href="fleet.html">Fleet</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-buttons">
+      <a href="login.html" class="btn btn-ghost btn-small">Sign in</a>
+      <a href="book-ride.html" class="btn btn-gold btn-small">Book Now</a>
+      <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+    </div>
+  </div>
+</header>
 
-            <div class="fleet-grid-large">
-                <!-- Mini -->
-                <div class="fleet-card">
-                    <div class="car-image">
-                        <img src="images/taxi1.png" alt="Mini">
-                        <span class="car-badge">Best Seller</span>
-                    </div>
-                    <div class="car-details">
-                        <h3>Mini</h3>
-                        <div class="car-specs">
-                            <span><i class="fas fa-users"></i> 4 Seats</span>
-                            <span><i class="fas fa-snowflake"></i> AC</span>
-                            <span><i class="fas fa-gas-pump"></i> Petrol</span>
-                        </div>
-                        <div class="car-price">
-                            <span class="price">₹10/km</span>
-                            <a href="book-ride.html" class="btn-primary">Book Now</a>
-                        </div>
-                    </div>
-                </div>
+<section class="booking-page">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Book a ride</div>
+      <h2>Plot your route across <em>Vadodara</em></h2>
+      <p>Search pickup and drop, watch the route draw live, and pick the ride that suits you.</p>
+    </div>
 
-                <!-- Sedan -->
-                <div class="fleet-card">
-                    <div class="car-image">
-                        <img src="images/taxi2.png" alt="Sedan">
-                    </div>
-                    <div class="car-details">
-                        <h3>Sedan</h3>
-                        <div class="car-specs">
-                            <span><i class="fas fa-users"></i> 4 Seats</span>
-                            <span><i class="fas fa-snowflake"></i> AC</span>
-                            <span><i class="fas fa-gas-pump"></i> Diesel</span>
-                        </div>
-                        <div class="car-price">
-                            <span class="price">₹14/km</span>
-                            <a href="book-ride.html" class="btn-primary">Book Now</a>
-                        </div>
-                    </div>
-                </div>
+    <div class="booking-layout">
+      <!-- LEFT: booking form -->
+      <div class="booking-card">
+        <h3>Where to, today?</h3>
+        <p class="sub">Real distance &amp; live fare, calculated on the map.</p>
 
-                <!-- SUV -->
-                <div class="fleet-card">
-                    <div class="car-image">
-                        <img src="images/taxi1.png" alt="SUV">
-                    </div>
-                    <div class="car-details">
-                        <h3>SUV</h3>
-                        <div class="car-specs">
-                            <span><i class="fas fa-users"></i> 6 Seats</span>
-                            <span><i class="fas fa-snowflake"></i> AC</span>
-                            <span><i class="fas fa-gas-pump"></i> Diesel</span>
-                        </div>
-                        <div class="car-price">
-                            <span class="price">₹18/km</span>
-                            <a href="book-ride.html" class="btn-primary">Book Now</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Luxury -->
-                <div class="fleet-card">
-                    <div class="car-image">
-                        <img src="images/taxi2.png" alt="Luxury">
-                        <span class="car-badge premium">Premium</span>
-                    </div>
-                    <div class="car-details">
-                        <h3>Luxury Sedan</h3>
-                        <div class="car-specs">
-                            <span><i class="fas fa-users"></i> 4 Seats</span>
-                            <span><i class="fas fa-snowflake"></i> Premium AC</span>
-                            <span><i class="fas fa-gas-pump"></i> Petrol</span>
-                        </div>
-                        <div class="car-price">
-                            <span class="price">₹25/km</span>
-                            <a href="book-ride.html" class="btn-primary">Book Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="field">
+          <label>Pickup</label>
+          <div class="field-input">
+            <i class="fas fa-circle" style="font-size:.55rem;"></i>
+            <input type="text" id="pickupInput" placeholder="Search pickup location in Vadodara" autocomplete="off">
+            <button class="locate-btn" id="locateBtn" title="Use my current location"><i class="fas fa-location-crosshairs"></i></button>
+          </div>
+          <div class="suggest-list" id="pickupSuggest"></div>
         </div>
-    </section>
 
-    <div id="footer"></div>
-    <script src="js/main.js"></script>
+        <div class="field">
+          <label>Drop</label>
+          <div class="field-input">
+            <i class="fas fa-map-pin"></i>
+            <input type="text" id="dropInput" placeholder="Search drop location in Vadodara" autocomplete="off">
+          </div>
+          <div class="suggest-list" id="dropSuggest"></div>
+        </div>
+
+        <div class="chip-row">
+          <button class="chip" data-place="Laxmi Vilas Palace, Vadodara">Laxmi Vilas Palace</button>
+          <button class="chip" data-place="Vadodara Railway Station">Railway Station</button>
+          <button class="chip" data-place="Vadodara Airport">Airport</button>
+          <button class="chip" data-place="Sayaji Baug, Vadodara">Sayaji Baug</button>
+          <button class="chip" data-place="Alkapuri, Vadodara">Alkapuri</button>
+        </div>
+
+        <div class="route-stats" id="routeStats">
+          <div><span>Distance</span><strong id="statDistance">—</strong></div>
+          <div><span>ETA</span><strong id="statEta">—</strong></div>
+        </div>
+
+        <div class="datetime-row">
+          <div class="field">
+            <label>Date</label>
+            <div class="field-input"><i class="fas fa-calendar"></i><input type="date" id="dateInput"></div>
+          </div>
+          <div class="field">
+            <label>Time</label>
+            <div class="field-input"><i class="fas fa-clock"></i><input type="time" id="timeInput"></div>
+          </div>
+        </div>
+
+        <label style="display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:14px 0 8px;font-weight:700;">Choose a ride</label>
+        <div class="vehicle-grid" id="vehicleGrid"></div>
+
+        <div class="fare-total">
+          <span>Estimated total</span>
+          <strong id="fareTotal">₹0</strong>
+        </div>
+
+        <button class="btn btn-gold btn-block" id="bookBtn" disabled><i class="fas fa-arrow-right"></i> Confirm &amp; pay</button>
+      </div>
+
+      <!-- RIGHT: live map -->
+      <div class="map-panel">
+        <h4><i class="fas fa-map-location-dot" style="color:var(--gold-dark);"></i> Live route preview</h4>
+        <div id="mini-map" class="map-box large"></div>
+        <p style="color:var(--muted);font-size:.82rem;margin-top:12px;">Map data © OpenStreetMap contributors · Routing via OSRM</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="index.html" class="brand"><span class="mark"><i class="fas fa-taxi"></i></span><span>Raahi</span></a>
+        <p>Vadodara's home-grown ride booking platform — built for the city's streets, festivals and rush hours.</p>
+        <div class="social-row" style="margin-top:20px;">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-x-twitter"></i></a>
+        </div>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <ul><li><a href="about.html">About us</a></li><li><a href="#">Careers</a></li><li><a href="#">Press</a></li><li><a href="#">Blog</a></li></ul>
+      </div>
+      <div>
+        <h5>Support</h5>
+        <ul><li><a href="contact.html">Help centre</a></li><li><a href="#">Safety</a></li><li><a href="pricing.html">Cancellation policy</a></li><li><a href="tel:+919876543210">+91 98765 43210</a></li></ul>
+      </div>
+      <div>
+        <h5>Drive with us</h5>
+        <ul><li><a href="register.html">Register as driver</a></li><li><a href="#">Driver earnings</a></li><li><a href="#">Requirements</a></li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Raahi Mobility Pvt. Ltd. · Vadodara, Gujarat</span>
+      <span>Map data © OpenStreetMap contributors</span>
+    </div>
+  </div>
+</footer>
+
+<!-- PAYMENT MODAL -->
+<div class="modal-overlay" id="payOverlay">
+  <div class="modal-box" style="position:relative;">
+    <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+    <div id="payForm">
+      <h3>Confirm &amp; pay</h3>
+      <p class="sub">Secure checkout · Raahi Pay</p>
+      <div class="pay-tabs">
+        <button class="pay-tab active" data-tab="upi"><i class="fas fa-mobile-screen-button"></i> UPI</button>
+        <button class="pay-tab" data-tab="card"><i class="fas fa-credit-card"></i> Card</button>
+        <button class="pay-tab" data-tab="cash"><i class="fas fa-money-bill-wave"></i> Cash</button>
+      </div>
+      <div class="pay-panel active" id="panel-upi">
+        <div class="upi-app-row">
+          <div class="upi-app active" data-app="gpay"><i class="fab fa-google-pay"></i>GPay</div>
+          <div class="upi-app" data-app="phonepe"><i class="fas fa-wallet"></i>PhonePe</div>
+          <div class="upi-app" data-app="paytm"><i class="fas fa-wallet"></i>Paytm</div>
+        </div>
+        <div class="field">
+          <label>UPI ID</label>
+          <div class="field-input"><i class="fas fa-at"></i><input type="text" id="upiId" placeholder="yourname@upi"></div>
+        </div>
+      </div>
+      <div class="pay-panel" id="panel-card">
+        <div class="field">
+          <label>Card number</label>
+          <div class="field-input"><i class="fas fa-credit-card"></i><input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19"></div>
+        </div>
+        <div class="card-row">
+          <div class="field">
+            <label>Expiry</label>
+            <div class="field-input"><i class="fas fa-calendar"></i><input type="text" id="cardExpiry" placeholder="MM / YY" maxlength="7"></div>
+          </div>
+          <div class="field">
+            <label>CVV</label>
+            <div class="field-input"><i class="fas fa-lock"></i><input type="password" id="cardCvv" placeholder="•••" maxlength="3"></div>
+          </div>
+        </div>
+      </div>
+      <div class="pay-panel" id="panel-cash">
+        <p style="color:var(--muted);font-size:.9rem;">Pay your driver directly in cash at the end of the trip. Please keep exact change ready where possible.</p>
+      </div>
+      <div class="pay-summary" id="paySummary"></div>
+      <button class="btn btn-gold btn-block" id="payNowBtn" style="margin-top:20px;"><i class="fas fa-lock"></i> Pay &amp; confirm ride</button>
+      <p style="text-align:center;font-size:.72rem;color:var(--muted);margin-top:12px;"><i class="fas fa-shield-halved"></i> Demo checkout — no real charge is made.</p>
+    </div>
+    <div class="pay-loading" id="payLoading">
+      <div class="spinner"></div>
+      <p style="text-align:center;color:var(--muted);">Confirming your ride…</p>
+    </div>
+    <div class="pay-success" id="paySuccess">
+      <i class="fas fa-circle-check"></i>
+      <h3 style="text-align:center;">Ride confirmed!</h3>
+      <p style="text-align:center;color:var(--muted);font-size:.9rem;">Your driver is on the way.</p>
+      <div class="driver-card">
+        <div class="driver-avatar" id="driverInitials">RK</div>
+        <div class="dinfo">
+          <h4 id="driverName">Ramesh Kanani</h4>
+          <p id="driverCar">Swift Dzire · GJ-06-XT-4521</p>
+          <p><i class="fas fa-star" style="color:var(--gold);"></i> 4.9 · 3,200 rides</p>
+        </div>
+      </div>
+      <div style="text-align:center;"><span class="eta-pill" id="etaPill"><i class="fas fa-clock"></i> Arriving in 6 min</span></div>
+      <button class="btn btn-ghost btn-block" id="closeSuccessBtn" style="margin-top:22px;">Done</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="js/main.js"></script>
+<script src="js/booking.js"></script>
 </body>
 </html>

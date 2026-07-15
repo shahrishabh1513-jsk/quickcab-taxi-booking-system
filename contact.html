@@ -1,414 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - QuickCab</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/navbar.css">
-    <link rel="stylesheet" href="css/responsive.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        .contact-hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 4rem 0;
-            text-align: center;
-        }
-        
-        .contact-hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-        
-        .contact-section {
-            padding: 5rem 0;
-            background: white;
-        }
-        
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-        }
-        
-        .contact-info h2 {
-            font-size: 2rem;
-            margin-bottom: 2rem;
-        }
-        
-        .contact-info h2 span {
-            color: var(--primary);
-        }
-        
-        .info-cards {
-            display: grid;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        
-        .info-card {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            padding: 1.5rem;
-            background: var(--light);
-            border-radius: 10px;
-            transition: transform 0.3s;
-        }
-        
-        .info-card:hover {
-            transform: translateX(10px);
-        }
-        
-        .info-card i {
-            font-size: 2rem;
-            color: var(--primary);
-            width: 50px;
-            text-align: center;
-        }
-        
-        .info-card h4 {
-            margin-bottom: 0.3rem;
-        }
-        
-        .info-card p {
-            color: var(--gray);
-        }
-        
-        .social-contact {
-            margin-top: 2rem;
-        }
-        
-        .social-contact h4 {
-            margin-bottom: 1rem;
-        }
-        
-        .social-icons {
-            display: flex;
-            gap: 1rem;
-        }
-        
-        .social-icons a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: var(--light);
-            border-radius: 50%;
-            color: var(--dark);
-            font-size: 1.2rem;
-            transition: all 0.3s;
-        }
-        
-        .social-icons a:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-3px);
-        }
-        
-        .contact-form-container {
-            background: var(--light);
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-        
-        .contact-form-container h3 {
-            font-size: 1.8rem;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-        
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border 0.3s;
-        }
-        
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-        
-        .form-group textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-        
-        .map-section {
-            padding: 3rem 0;
-            background: var(--light);
-        }
-        
-        .map-container {
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-        
-        .map-placeholder {
-            height: 400px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: white;
-        }
-        
-        .faq-section {
-            padding: 5rem 0;
-            background: white;
-        }
-        
-        .faq-grid {
-            max-width: 800px;
-            margin: 3rem auto 0;
-        }
-        
-        .faq-item {
-            background: var(--light);
-            border-radius: 10px;
-            margin-bottom: 1rem;
-            overflow: hidden;
-        }
-        
-        .faq-question {
-            padding: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            font-weight: 600;
-        }
-        
-        .faq-question i {
-            transition: transform 0.3s;
-        }
-        
-        .faq-item.active .faq-question i {
-            transform: rotate(180deg);
-        }
-        
-        .faq-answer {
-            padding: 0 1.5rem;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s, padding 0.3s;
-        }
-        
-        .faq-item.active .faq-answer {
-            padding: 0 1.5rem 1.5rem;
-            max-height: 200px;
-        }
-        
-        @media (max-width: 768px) {
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us — Raahi Vadodara</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/navbar.css">
+<link rel="stylesheet" href="css/booking.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 <body>
-    <div id="navbar"></div>
 
-    <!-- Contact Hero -->
-    <section class="contact-hero">
-        <div class="container">
-            <h1>Get In <span style="color: var(--primary);">Touch</span></h1>
-            <p>We're here to help 24/7</p>
+<header>
+  <div class="nav-wrap">
+    <a href="index.html" class="brand"><span class="mark"><i class="fas fa-taxi"></i></span><span>Raahi<small>VADODARA · EST. 2026</small></span></a>
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="book-ride.html">Book Ride</a></li>
+      <li><a href="fleet.html">Fleet</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+    <div class="nav-buttons">
+      <a href="login.html" class="btn btn-ghost btn-small">Sign in</a>
+      <a href="book-ride.html" class="btn btn-gold btn-small">Book Now</a>
+      <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="eyebrow" style="justify-content:center;">Get in touch</div>
+    <h1>We're here <em>24/7</em></h1>
+    <p>Questions, feedback, or a partnership idea — we'd love to hear from you.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container contact-grid">
+    <div class="reveal">
+      <h2 style="font-size:2rem;margin-bottom:1.6rem;">We'd love to <em style="color:var(--gold);font-style:normal;">hear</em> from you</h2>
+      <p style="color:var(--muted);margin-bottom:2rem;">Reach out and our team will get back to you as soon as possible.</p>
+
+      <div class="info-cards">
+        <div class="info-card">
+          <i class="fas fa-phone-alt"></i>
+          <div><h4>Phone</h4><p>+91 98765 43210</p><p>+91 98765 43211 (24/7 Support)</p></div>
         </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact-section">
-        <div class="container">
-            <div class="contact-grid">
-                <!-- Contact Info -->
-                <div class="contact-info">
-                    <h2>We'd love to <span>hear</span> from you</h2>
-                    <p style="margin-bottom: 2rem; color: var(--gray);">Have a question, feedback, or just want to say hello? Reach out to us and we'll get back to you as soon as possible.</p>
-                    
-                    <div class="info-cards">
-                        <div class="info-card">
-                            <i class="fas fa-phone-alt"></i>
-                            <div>
-                                <h4>Phone</h4>
-                                <p>+91 98765 43210</p>
-                                <p>+91 98765 43211 (24/7 Support)</p>
-                            </div>
-                        </div>
-                        
-                        <div class="info-card">
-                            <i class="fas fa-envelope"></i>
-                            <div>
-                                <h4>Email</h4>
-                                <p>support@quickcab.com</p>
-                                <p>careers@quickcab.com</p>
-                            </div>
-                        </div>
-                        
-                        <div class="info-card">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <div>
-                                <h4>Head Office</h4>
-                                <p>123, Tech Park, Whitefield</p>
-                                <p>Bangalore, Karnataka - 560066</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="social-contact">
-                        <h4>Follow Us</h4>
-                        <div class="social-icons">
-                            <a href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#"><i class="fab fa-youtube"></i></a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Contact Form -->
-                <div class="contact-form-container">
-                    <h3>Send us a message</h3>
-                    <form id="contact-form">
-                        <div class="form-group">
-                            <label>Your Name</label>
-                            <input type="text" placeholder="Enter your full name" required>
-                        </div>
-                        
-                        <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input type="email" placeholder="your@email.com" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Phone</label>
-                                <input type="tel" placeholder="10 digit mobile" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Subject</label>
-                            <select>
-                                <option>Select a topic</option>
-                                <option>Booking Issue</option>
-                                <option>Driver Feedback</option>
-                                <option>Payment Issue</option>
-                                <option>Partnership</option>
-                                <option>Other</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Message</label>
-                            <textarea placeholder="Write your message here..."></textarea>
-                        </div>
-                        
-                        <button type="submit" class="btn-primary btn-block">Send Message</button>
-                    </form>
-                </div>
-            </div>
+        <div class="info-card">
+          <i class="fas fa-envelope"></i>
+          <div><h4>Email</h4><p>support@raahi.in</p><p>careers@raahi.in</p></div>
         </div>
-    </section>
-
-    <!-- Map Section -->
-    <section class="map-section">
-        <div class="container">
-            <div class="map-container">
-                <div class="map-placeholder">
-                    <i class="fas fa-map-marked-alt" style="font-size: 4rem; margin-bottom: 1rem;"></i>
-                    <p>Google Maps Integration</p>
-                    <small>QuickCab Headquarters, Bangalore</small>
-                </div>
-            </div>
+        <div class="info-card">
+          <i class="fas fa-map-marker-alt"></i>
+          <div><h4>Head Office</h4><p>3rd Floor, Fortune Business Hub</p><p>Sayajigunj, Vadodara – 390005</p></div>
         </div>
-    </section>
+      </div>
 
-    <!-- FAQ Section -->
-    <section class="faq-section">
-        <div class="container">
-            <h2 class="section-title">Frequently Asked <span>Questions</span></h2>
-            
-            <div class="faq-grid">
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFAQ(this)">
-                        <span>How do I book a ride?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>You can book a ride through our website by clicking on "Book Ride" and entering your pickup and drop locations. You can also download our mobile app from Google Play or App Store for easier booking.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFAQ(this)">
-                        <span>What payment methods do you accept?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>We accept all major credit/debit cards, UPI (Google Pay, PhonePe, Paytm), net banking, and cash. You can also add money to your QuickCab wallet for faster payments.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFAQ(this)">
-                        <span>How do I become a driver partner?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Click on "Driver Registration" in the menu, fill out the form with your details and documents. Our team will verify your documents and activate your account within 24-48 hours.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFAQ(this)">
-                        <span>What is your cancellation policy?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>You can cancel within 5 minutes of booking without any charge. After that, a cancellation fee of ₹50 may apply depending on the time of cancellation.</p>
-                    </div>
-                </div>
-            </div>
+      <div>
+        <h4 style="margin-bottom:1rem;font-size:1rem;">Follow us</h4>
+        <div class="social-row">
+          <a href="#" style="background:var(--surface-soft);color:var(--ink);"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" style="background:var(--surface-soft);color:var(--ink);"><i class="fab fa-instagram"></i></a>
+          <a href="#" style="background:var(--surface-soft);color:var(--ink);"><i class="fab fa-x-twitter"></i></a>
+          <a href="#" style="background:var(--surface-soft);color:var(--ink);"><i class="fab fa-linkedin-in"></i></a>
         </div>
-    </section>
+      </div>
+    </div>
 
-    <div id="footer"></div>
+    <div class="contact-form-card reveal">
+      <h3>Send us a message</h3>
+      <form id="contact-form">
+        <div class="field">
+          <label>Your name</label>
+          <div class="field-input"><i class="fas fa-user"></i><input type="text" placeholder="Enter your full name" required></div>
+        </div>
+        <div class="card-row">
+          <div class="field">
+            <label>Email</label>
+            <div class="field-input"><i class="fas fa-envelope"></i><input type="email" placeholder="your@email.com" required></div>
+          </div>
+          <div class="field">
+            <label>Phone</label>
+            <div class="field-input"><i class="fas fa-phone"></i><input type="tel" placeholder="10-digit mobile" required></div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Subject</label>
+          <div class="field-input">
+            <i class="fas fa-tag"></i>
+            <select>
+              <option>Select a topic</option>
+              <option>Booking issue</option>
+              <option>Driver feedback</option>
+              <option>Payment issue</option>
+              <option>Partnership</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label>Message</label>
+          <div class="field-input"><i class="fas fa-message" style="align-self:flex-start;margin-top:10px;"></i><textarea placeholder="Write your message here..." required></textarea></div>
+        </div>
+        <button type="submit" class="btn btn-gold btn-block">Send message</button>
+      </form>
+    </div>
+  </div>
+</section>
 
-    <script src="js/main.js"></script>
-    <script>
-        function toggleFAQ(element) {
-            const faqItem = element.parentElement;
-            faqItem.classList.toggle('active');
-        }
-        
-        document.getElementById('contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for contacting us! We\'ll get back to you soon.');
-            this.reset();
-        });
-    </script>
+<section class="section-alt">
+  <div class="container">
+    <div class="section-head center reveal">
+      <div class="eyebrow">Find us</div>
+      <h2>Raahi <em>Headquarters</em></h2>
+    </div>
+    <div id="hq-map" class="map-embed reveal"></div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-head center reveal">
+      <div class="eyebrow">Questions</div>
+      <h2>Frequently Asked <em>Questions</em></h2>
+    </div>
+    <div class="faq-grid">
+      <div class="faq-item reveal">
+        <div class="faq-question"><span>How do I book a ride?</span><i class="fas fa-chevron-down"></i></div>
+        <div class="faq-answer"><p>Head to the "Book Ride" page, drop your pickup and drop pins on the map, choose a vehicle, and confirm payment. Your driver is assigned instantly.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-question"><span>What payment methods do you accept?</span><i class="fas fa-chevron-down"></i></div>
+        <div class="faq-answer"><p>We accept UPI (GPay, PhonePe, Paytm), all major credit/debit cards, and cash paid directly to your driver.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-question"><span>How do I become a driver partner?</span><i class="fas fa-chevron-down"></i></div>
+        <div class="faq-answer"><p>Click "Register as driver" on our Register page, fill in your details and documents, and our team verifies you within 24–48 hours.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-question"><span>What is your cancellation policy?</span><i class="fas fa-chevron-down"></i></div>
+        <div class="faq-answer"><p>Cancel free within 5 minutes of booking. After that, a ₹50 cancellation fee may apply.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="index.html" class="brand"><span class="mark"><i class="fas fa-taxi"></i></span><span>Raahi</span></a>
+        <p>Vadodara's home-grown ride booking platform — built for the city's streets, festivals and rush hours.</p>
+        <div class="social-row" style="margin-top:20px;">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-x-twitter"></i></a>
+        </div>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <ul><li><a href="about.html">About us</a></li><li><a href="#">Careers</a></li><li><a href="#">Press</a></li><li><a href="#">Blog</a></li></ul>
+      </div>
+      <div>
+        <h5>Support</h5>
+        <ul><li><a href="contact.html">Help centre</a></li><li><a href="#">Safety</a></li><li><a href="pricing.html">Cancellation policy</a></li><li><a href="tel:+919876543210">+91 98765 43210</a></li></ul>
+      </div>
+      <div>
+        <h5>Drive with us</h5>
+        <ul><li><a href="register.html">Register as driver</a></li><li><a href="#">Driver earnings</a></li><li><a href="#">Requirements</a></li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Raahi Mobility Pvt. Ltd. · Vadodara, Gujarat</span>
+      <span>Map data © OpenStreetMap contributors</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="js/main.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const el = document.getElementById('hq-map');
+    if (el && window.L) {
+      const map = L.map(el, { attributionControl:false }).setView([22.3149, 73.1809], 15);
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { maxZoom:19 }).addTo(map);
+      L.marker([22.3149, 73.1809], { icon:L.divIcon({className:'',html:'<div class="pin-dot"></div>'}) })
+        .addTo(map).bindPopup('Raahi HQ · Sayajigunj, Vadodara').openPopup();
+    }
+  });
+</script>
 </body>
 </html>
