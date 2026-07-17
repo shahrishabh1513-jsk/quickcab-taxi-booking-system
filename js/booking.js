@@ -1,12 +1,12 @@
 /* =========================================================
-   RT QuickCab  — booking.js
+   RAAHI — booking.js
    Live map, geocoding, routing, fare & payment flow.
    Safe to include on every page — it no-ops if the relevant
    elements aren't present.
    ========================================================= */
 
 const VADODARA_CENTER = [22.3072, 73.1812];
-const VADODARA_BOUNDS = { minLat: 22.20, maxLat: 22.42, minLon: 73.05, maxLon: 73.30 };
+const VADODARA_BOUNDS = { minLat: 22.15, maxLat: 22.46, minLon: 73.00, maxLon: 73.40 };
 
 const VEHICLES = [
   { id: 'auto',  name: 'Auto',  icon: 'fa-motorcycle',  per_km: 8,  base: 20, capacity: '3 seats', eta: '3 min' },
@@ -15,12 +15,47 @@ const VEHICLES = [
   { id: 'suv',   name: 'SUV',   icon: 'fa-shuttle-van', per_km: 19, base: 60, capacity: '6 seats', eta: '8 min' },
 ];
 
+/* 38 well-known Vadodara landmarks & localities — used for quick-pick chips,
+   instant local search suggestions, and pins on the coverage map. */
 const LANDMARKS = [
-  { name: 'Laxmi Vilas Palace, Vadodara', lat: 22.2996, lon: 73.2081 },
-  { name: 'Vadodara Railway Station',      lat: 22.3086, lon: 73.1808 },
-  { name: 'Vadodara Airport',              lat: 22.3363, lon: 73.2263 },
-  { name: 'Sayaji Baug, Vadodara',         lat: 22.3111, lon: 73.1934 },
-  { name: 'Alkapuri, Vadodara',            lat: 22.3126, lon: 73.1698 },
+  { name: 'Laxmi Vilas Palace, Vadodara',        lat: 22.2996, lon: 73.2081 },
+  { name: 'Vadodara Railway Station',             lat: 22.3086, lon: 73.1808 },
+  { name: 'Vadodara Airport',                     lat: 22.3363, lon: 73.2263 },
+  { name: 'Sayaji Baug, Vadodara',                lat: 22.3111, lon: 73.1934 },
+  { name: 'Alkapuri, Vadodara',                   lat: 22.3126, lon: 73.1698 },
+  { name: 'MS University (Pratapgunj), Vadodara', lat: 22.3159, lon: 73.1929 },
+  { name: 'Parul University, Vadodara',           lat: 22.2686, lon: 73.3699 },
+  { name: 'Manjalpur, Vadodara',                  lat: 22.2707, lon: 73.1934 },
+  { name: 'Krishna Harmony, Gotri, Vadodara',     lat: 22.3231, lon: 73.1450 },
+  { name: 'Gotri, Vadodara',                      lat: 22.3232, lon: 73.1462 },
+  { name: 'Sama, Vadodara',                       lat: 22.3312, lon: 73.1706 },
+  { name: 'Akota, Vadodara',                      lat: 22.2965, lon: 73.1745 },
+  { name: 'Karelibaug, Vadodara',                 lat: 22.3220, lon: 73.2050 },
+  { name: 'Waghodia Road, Vadodara',              lat: 22.3184, lon: 73.2385 },
+  { name: 'Nizampura, Vadodara',                  lat: 22.3245, lon: 73.1889 },
+  { name: 'Vasna, Vadodara',                      lat: 22.2820, lon: 73.1780 },
+  { name: 'Tarsali, Vadodara',                    lat: 22.2740, lon: 73.1650 },
+  { name: 'Ellora Park, Vadodara',                lat: 22.2879, lon: 73.1614 },
+  { name: 'Subhanpura, Vadodara',                 lat: 22.3170, lon: 73.1580 },
+  { name: 'Harni, Vadodara',                      lat: 22.3396, lon: 73.1957 },
+  { name: 'Chhani, Vadodara',                     lat: 22.3480, lon: 73.1650 },
+  { name: 'Gorwa, Vadodara',                      lat: 22.3305, lon: 73.1590 },
+  { name: 'Makarpura GIDC, Vadodara',             lat: 22.2612, lon: 73.1875 },
+  { name: 'Fatehgunj, Vadodara',                  lat: 22.3183, lon: 73.1873 },
+  { name: 'Sayajigunj, Vadodara',                 lat: 22.3140, lon: 73.1850 },
+  { name: 'Race Course Circle, Vadodara',         lat: 22.3150, lon: 73.1780 },
+  { name: 'Old Padra Road, Vadodara',             lat: 22.2850, lon: 73.1700 },
+  { name: 'New VIP Road, Vadodara',               lat: 22.3300, lon: 73.1500 },
+  { name: 'Bhayli, Vadodara',                     lat: 22.3450, lon: 73.1150 },
+  { name: 'Diwalipura, Vadodara',                 lat: 22.2990, lon: 73.1980 },
+  { name: 'Jetalpur Road, Vadodara',              lat: 22.2820, lon: 73.1900 },
+  { name: 'Panigate, Vadodara',                   lat: 22.3040, lon: 73.2010 },
+  { name: 'Mandvi Gate, Vadodara',                lat: 22.3010, lon: 73.2020 },
+  { name: 'Vadodara Central Mall, Old Padra Rd',  lat: 22.2865, lon: 73.1710 },
+  { name: 'Inorbit Mall, Gorwa, Vadodara',        lat: 22.3300, lon: 73.1600 },
+  { name: 'EME Temple (Dashrath Mandir), Vadodara', lat: 22.3160, lon: 73.1620 },
+  { name: 'Kirti Mandir, Vadodara',               lat: 22.3005, lon: 73.2040 },
+  { name: 'Ajwa Road, Vadodara',                  lat: 22.3550, lon: 73.1750 },
 ];
 
 const DRIVER_NAMES = [
@@ -89,15 +124,30 @@ function initBookingWidget() {
   /* ---- geocoding (Nominatim) ---- */
   function debounce(fn, ms) { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; }
 
+  function searchLocalLandmarks(query) {
+    const q = query.trim().toLowerCase();
+    if (!q) return [];
+    return LANDMARKS
+      .filter(l => l.name.toLowerCase().includes(q))
+      .map(l => ({ name: l.name, full: l.name + ' · Vadodara, Gujarat', lat: l.lat, lon: l.lon }));
+  }
+
   async function geocodeSearch(query) {
     if (!query || query.length < 3) return [];
+    const local = searchLocalLandmarks(query);
     const viewbox = `${VADODARA_BOUNDS.minLon},${VADODARA_BOUNDS.maxLat},${VADODARA_BOUNDS.maxLon},${VADODARA_BOUNDS.minLat}`;
     const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query + ', Vadodara, Gujarat')}&viewbox=${viewbox}&bounded=1&limit=6`;
     try {
       const res = await fetch(url);
       const data = await res.json();
-      return data.map(d => ({ name: d.display_name.split(',').slice(0, 3).join(','), full: d.display_name, lat: parseFloat(d.lat), lon: parseFloat(d.lon) }));
-    } catch (err) { return []; }
+      const remote = data.map(d => ({ name: d.display_name.split(',').slice(0, 3).join(','), full: d.display_name, lat: parseFloat(d.lat), lon: parseFloat(d.lon) }));
+      // local landmarks first (instant & reliable), then live results, deduped by name
+      const seen = new Set(local.map(l => l.name.toLowerCase()));
+      const merged = [...local, ...remote.filter(r => !seen.has(r.name.toLowerCase()))];
+      return merged.slice(0, 7);
+    } catch (err) {
+      return local; // still useful offline / if Nominatim is unreachable
+    }
   }
 
   function renderSuggestions(listEl, items, onPick) {
@@ -323,6 +373,23 @@ function initBookingWidget() {
     document.getElementById('driverInitials').textContent = d.name.split(' ').map(w => w[0]).join('');
     const v = VEHICLES.find(v => v.id === state.selectedVehicle);
     document.getElementById('etaPill').innerHTML = `<i class="fas fa-clock"></i> Arriving in ${v.eta}`;
+
+    /* ---- save this ride to the customer's data store ---- */
+    if (typeof raahiSaveRide === 'function') {
+      const session = typeof raahiGetSession === 'function' ? raahiGetSession() : null;
+      raahiSaveRide(session ? session.email : null, {
+        pickup: state.pickup.name,
+        drop: state.drop.name,
+        vehicle: v.name,
+        distanceKm: Number(state.distanceKm.toFixed(1)),
+        fare: currentFare(),
+        driver: d.name,
+        car: d.car,
+        status: 'Confirmed',
+      });
+      if (!session) toast('Sign in to save this ride to your account permanently', '');
+    }
+
     animateCarAlongRoute();
   }
 

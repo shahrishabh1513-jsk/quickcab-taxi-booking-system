@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RT QuickCab  — Book a Cab in Vadodara</title>
+<title>Raahi — Book a Cab in Vadodara</title>
 <meta name="description" content="Book a cab anywhere in Vadodara in seconds. Live map, real fares, instant confirmation.">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/navbar.css">
@@ -16,7 +16,7 @@
 
 <header>
   <div class="nav-wrap">
-    <a href="index.html" class="brand"><span class="mark"><i class="fas fa-taxi"></i></span><span>RT QuickCab <small>VADODARA · EST. 2026</small></span></a>
+    <a href="index.html" class="brand"><span class="mark"><i class="fas fa-taxi"></i></span><span>Raahi<small>VADODARA · EST. 2026</small></span></a>
     <ul class="nav-menu" id="navMenu">
       <li><a href="index.html" class="active">Home</a></li>
       <li><a href="book-ride.html">Book Ride</a></li>
@@ -27,7 +27,7 @@
       <li><a href="contact.html">Contact</a></li>
     </ul>
     <div class="nav-buttons">
-      <a href="login.html" class="btn btn-ghost btn-small">Sign in</a>
+      <a href="login.html" id="navAuthLink" class="btn btn-ghost btn-small">Sign in</a>
       <a href="book-ride.html" class="btn btn-gold btn-small">Book Now</a>
       <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
     </div>
@@ -98,6 +98,9 @@
         <button class="chip" data-place="Vadodara Airport">Airport</button>
         <button class="chip" data-place="Sayaji Baug, Vadodara">Sayaji Baug</button>
         <button class="chip" data-place="Alkapuri, Vadodara">Alkapuri</button>
+        <button class="chip" data-place="MS University (Pratapgunj), Vadodara">MS University</button>
+        <button class="chip" data-place="Parul University, Vadodara">Parul University</button>
+        <button class="chip" data-place="Manjalpur, Vadodara">Manjalpur</button>
       </div>
 
       <div id="mini-map" class="map-box"></div>
@@ -170,12 +173,14 @@
     <div class="reveal">
       <div class="eyebrow">Coverage</div>
       <h2>Everywhere in <em>Vadodara</em>,<br>day or night</h2>
-      <p style="color:var(--muted);margin-top:14px;">From Gotri to Karelibaug, Manjalpur to Fatehgunj — our driver-partners cover every corner of the city, round the clock.</p>
+      <p style="color:var(--muted);margin-top:14px;">From Gotri to Karelibaug, Manjalpur to Fatehgunj, MS University to Parul University — our driver-partners cover 38+ localities across the city, round the clock.</p>
       <ul style="display:grid;gap:14px;margin-top:26px;">
         <li style="display:flex;align-items:center;gap:12px;color:var(--muted);font-size:.92rem;"><i class="fas fa-landmark" style="color:var(--jade);"></i> Laxmi Vilas Palace &amp; Sayaji Baug</li>
+        <li style="display:flex;align-items:center;gap:12px;color:var(--muted);font-size:.92rem;"><i class="fas fa-graduation-cap" style="color:var(--jade);"></i> MS University &amp; Parul University</li>
         <li style="display:flex;align-items:center;gap:12px;color:var(--muted);font-size:.92rem;"><i class="fas fa-plane" style="color:var(--jade);"></i> Vadodara International Airport</li>
         <li style="display:flex;align-items:center;gap:12px;color:var(--muted);font-size:.92rem;"><i class="fas fa-train" style="color:var(--jade);"></i> Vadodara Railway Station</li>
-        <li style="display:flex;align-items:center;gap:12px;color:var(--muted);font-size:.92rem;"><i class="fas fa-building" style="color:var(--jade);"></i> Alkapuri, Fatehgunj &amp; Sayajigunj</li>
+        <li style="display:flex;align-items:center;gap:12px;color:var(--muted);font-size:.92rem;"><i class="fas fa-building" style="color:var(--jade);"></i> Alkapuri, Fatehgunj, Sayajigunj &amp; Manjalpur</li>
+        <li style="display:flex;align-items:center;gap:12px;color:var(--muted);font-size:.92rem;"><i class="fas fa-house" style="color:var(--jade);"></i> Gotri, Sama, Akota, Vasna &amp; Krishna Harmony</li>
         <li style="display:flex;align-items:center;gap:12px;color:var(--muted);font-size:.92rem;"><i class="fas fa-industry" style="color:var(--jade);"></i> Gorwa, Makarpura &amp; GIDC industrial belt</li>
       </ul>
     </div>
@@ -186,7 +191,7 @@
 <section class="section-alt" id="why">
   <div class="container">
     <div class="section-head center reveal">
-      <div class="eyebrow">Why RT QuickCab </div>
+      <div class="eyebrow">Why Raahi</div>
       <h2>Built for how <em>Vadodara</em> moves</h2>
     </div>
     <div class="why-grid">
@@ -237,7 +242,7 @@
   <div class="container">
     <div class="footer-grid">
       <div>
-        <a href="index.html" class="brand"><span class="mark"><i class="fas fa-taxi"></i></span><span>RT QuickCab </span></a>
+        <a href="index.html" class="brand"><span class="mark"><i class="fas fa-taxi"></i></span><span>Raahi</span></a>
         <p>Vadodara's home-grown ride booking platform — built for the city's streets, festivals and rush hours.</p>
         <div class="social-row" style="margin-top:20px;">
           <a href="#"><i class="fab fa-instagram"></i></a>
@@ -259,7 +264,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© <span id="year"></span> RT QuickCab  Mobility Pvt. Ltd. · Vadodara, Gujarat</span>
+      <span>© <span id="year"></span> Raahi Mobility Pvt. Ltd. · Vadodara, Gujarat</span>
       <span>Map data © OpenStreetMap contributors</span>
     </div>
   </div>
@@ -271,7 +276,7 @@
     <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
     <div id="payForm">
       <h3>Confirm &amp; pay</h3>
-      <p class="sub">Secure checkout · RT QuickCab  Pay</p>
+      <p class="sub">Secure checkout · Raahi Pay</p>
       <div class="pay-tabs">
         <button class="pay-tab active" data-tab="upi"><i class="fas fa-mobile-screen-button"></i> UPI</button>
         <button class="pay-tab" data-tab="card"><i class="fas fa-credit-card"></i> Card</button>

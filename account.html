@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Account — Raahi Vadodara</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/navbar.css">
+<link rel="stylesheet" href="css/booking.css">
+<link rel="stylesheet" href="css/account.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<header>
+  <div class="nav-wrap">
+    <a href="index.html" class="brand"><span class="mark"><i class="fas fa-taxi"></i></span><span>Raahi<small>VADODARA · EST. 2026</small></span></a>
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="book-ride.html">Book Ride</a></li>
+      <li><a href="fleet.html">Fleet</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-buttons">
+      <a href="login.html" id="navAuthLink" class="btn btn-ghost btn-small">Sign in</a>
+      <a href="book-ride.html" class="btn btn-gold btn-small">Book Now</a>
+      <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+    </div>
+  </div>
+</header>
+
+<section class="account-page">
+  <div class="container">
+    <div class="section-head" style="margin-bottom:34px;">
+      <div class="eyebrow">Your data, on this device</div>
+      <h2>My <em>Account</em></h2>
+      <p>Profile, saved addresses and ride history — stored securely in your browser for this site.</p>
+    </div>
+
+    <div id="accountGate" class="empty-state" style="display:none;">
+      <i class="fas fa-lock"></i>
+      <p>Please sign in to view your account.</p>
+      <a href="login.html" class="btn btn-gold" style="margin-top:14px;">Sign in</a>
+    </div>
+
+    <div id="accountContent" class="account-layout" style="display:none;">
+      <!-- LEFT COLUMN -->
+      <div>
+        <div class="account-card">
+          <div class="profile-top">
+            <div class="profile-avatar" id="profileAvatar">RK</div>
+            <div>
+              <h4 id="profileName">—</h4>
+              <p id="profileEmail">—</p>
+            </div>
+          </div>
+          <div id="profileView">
+            <div class="field"><label>Phone</label><div class="field-input"><i class="fas fa-phone"></i><span id="profilePhone" style="color:var(--ink);">—</span></div></div>
+            <div class="row-actions">
+              <button class="btn btn-ghost btn-small" id="editProfileBtn"><i class="fas fa-pen"></i> Edit profile</button>
+              <button class="btn btn-ghost btn-small" id="logoutBtn"><i class="fas fa-arrow-right-from-bracket"></i> Sign out</button>
+            </div>
+          </div>
+          <form id="profileEditForm" style="display:none;">
+            <div class="field"><label>Full name</label><div class="field-input"><i class="fas fa-user"></i><input type="text" id="editName" required></div></div>
+            <div class="field"><label>Phone</label><div class="field-input"><i class="fas fa-phone"></i><input type="tel" id="editPhone"></div></div>
+            <div class="row-actions">
+              <button type="submit" class="btn btn-gold btn-small">Save changes</button>
+              <button type="button" class="btn btn-ghost btn-small" id="cancelEditBtn">Cancel</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="account-card">
+          <h3>Saved addresses</h3>
+          <p class="sub">Add Home, Work or any frequent stop for faster booking.</p>
+          <div id="addressList"></div>
+          <form id="addAddressForm" style="margin-top:14px;">
+            <div class="datetime-row">
+              <div class="field">
+                <label>Label</label>
+                <div class="field-input"><i class="fas fa-tag"></i>
+                  <select id="addrLabel"><option>Home</option><option>Work</option><option>Other</option></select>
+                </div>
+              </div>
+              <div class="field">
+                <label>Address</label>
+                <div class="field-input"><i class="fas fa-map-pin"></i><input type="text" id="addrText" placeholder="e.g. Krishna Harmony, Gotri" required></div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-ghost btn-block btn-small"><i class="fas fa-plus"></i> Add address</button>
+          </form>
+        </div>
+
+        <div class="account-card">
+          <h3 style="color:var(--danger);">Danger zone</h3>
+          <div class="danger-zone">
+            <p>Permanently delete your account, saved addresses and ride history from this browser. This can't be undone.</p>
+            <button class="btn btn-ghost btn-small" id="clearDataBtn" style="border-color:var(--danger);color:var(--danger);"><i class="fas fa-trash"></i> Clear my data</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="account-card">
+        <h3>Ride history</h3>
+        <p class="sub">Every ride you confirm through Raahi is saved here automatically.</p>
+        <div id="rideList"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script src="js/main.js"></script>
+<script src="js/account.js"></script>
+</body>
+</html>
