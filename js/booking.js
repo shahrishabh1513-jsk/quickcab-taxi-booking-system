@@ -1,5 +1,5 @@
 /* =========================================================
-   RAAHI — booking.js
+   RT QuickCab  — booking.js
    Live map, geocoding, routing, fare & payment flow.
    Safe to include on every page — it no-ops if the relevant
    elements aren't present.
@@ -375,9 +375,9 @@ function initBookingWidget() {
     document.getElementById('etaPill').innerHTML = `<i class="fas fa-clock"></i> Arriving in ${v.eta}`;
 
     /* ---- save this ride to the customer's data store ---- */
-    if (typeof raahiSaveRide === 'function') {
-      const session = typeof raahiGetSession === 'function' ? raahiGetSession() : null;
-      raahiSaveRide(session ? session.email : null, {
+    if (typeof RT QuickCab SaveRide === 'function') {
+      const session = typeof RT QuickCab GetSession === 'function' ? RT QuickCab GetSession() : null;
+      RT QuickCab SaveRide(session ? session.email : null, {
         pickup: state.pickup.name,
         drop: state.drop.name,
         vehicle: v.name,

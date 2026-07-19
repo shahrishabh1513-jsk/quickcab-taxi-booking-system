@@ -1,12 +1,12 @@
 /* =========================================================
-   RAAHI — account.js
+   RT QuickCab  — account.js
    Renders the signed-in customer's profile, saved addresses
    and ride history, all backed by the localStorage data store
    defined in main.js.
    ========================================================= */
 
 document.addEventListener('DOMContentLoaded', () => {
-  const session = raahiGetSession();
+  const session = RT QuickCab GetSession();
 
   if (!session) {
     document.getElementById('accountGate').style.display = 'block';
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
   wireDangerZone(session.email);
 
   const logoutBtn = document.getElementById('logoutBtn');
-  if (logoutBtn) logoutBtn.addEventListener('click', raahiLogout);
+  if (logoutBtn) logoutBtn.addEventListener('click', RT QuickCab Logout);
 });
 
 function renderProfile(account) {
@@ -41,7 +41,7 @@ function wireProfileEdit(email) {
   const formBlock = document.getElementById('profileEditForm');
 
   editBtn.addEventListener('click', () => {
-    const account = raahiFindAccount(email);
+    const account = RT QuickCab FindAccount(email);
     document.getElementById('editName').value = account.name;
     document.getElementById('editPhone').value = account.phone || '';
     viewBlock.style.display = 'none';
@@ -53,20 +53,20 @@ function wireProfileEdit(email) {
   });
   formBlock.addEventListener('submit', e => {
     e.preventDefault();
-    const updated = raahiUpdateAccount(email, {
+    const updated = RT QuickCab UpdateAccount(email, {
       name: document.getElementById('editName').value.trim(),
       phone: document.getElementById('editPhone').value.trim(),
     });
     renderProfile(updated);
     viewBlock.style.display = 'block';
     formBlock.style.display = 'none';
-    raahiUpdateAuthNav();
+    RT QuickCab UpdateAuthNav();
     toast('Profile updated', 'success');
   });
 }
 
 function renderAddresses(email) {
-  const list = raahiGetAddresses(email);
+  const list = RT QuickCab GetAddresses(email);
   const el = document.getElementById('addressList');
   if (list.length === 0) {
     el.innerHTML = `<div class="empty-state"><i class="fas fa-map-pin"></i><p>No saved addresses yet.</p></div>`;
@@ -80,7 +80,7 @@ function renderAddresses(email) {
   `).join('');
   el.querySelectorAll('.del-addr').forEach(btn => {
     btn.addEventListener('click', () => {
-      raahiDeleteAddress(email, btn.dataset.id);
+      RT QuickCab DeleteAddress(email, btn.dataset.id);
       renderAddresses(email);
       toast('Address removed', '');
     });
@@ -94,7 +94,7 @@ function wireAddressForm(email) {
     const label = document.getElementById('addrLabel').value;
     const address = document.getElementById('addrText').value.trim();
     if (!address) return;
-    raahiSaveAddress(email, { label, address });
+    RT QuickCab SaveAddress(email, { label, address });
     document.getElementById('addrText').value = '';
     renderAddresses(email);
     toast('Address saved', 'success');
@@ -102,7 +102,7 @@ function wireAddressForm(email) {
 }
 
 function renderRides(email) {
-  const rides = raahiGetRides(email);
+  const rides = RT QuickCab GetRides(email);
   const el = document.getElementById('rideList');
   if (rides.length === 0) {
     el.innerHTML = `<div class="empty-state"><i class="fas fa-route"></i><p>No rides yet — your booking history will show up here.</p></div>`;
@@ -128,7 +128,7 @@ function renderRides(email) {
 function wireDangerZone(email) {
   document.getElementById('clearDataBtn').addEventListener('click', () => {
     if (!confirm('This permanently deletes your account, addresses and ride history from this browser. Continue?')) return;
-    raahiClearMyData(email);
+    RT QuickCab ClearMyData(email);
     toast('Your data has been deleted', 'success');
     setTimeout(() => window.location.href = 'index.html', 800);
   });

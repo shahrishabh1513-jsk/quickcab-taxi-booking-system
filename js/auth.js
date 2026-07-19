@@ -1,8 +1,8 @@
 /* =========================================================
-   RAAHI — auth.js
+   RT QuickCab  — auth.js
    Login & register form handlers.
    Reads/writes through the account store defined in main.js
-   (raahiCreateAccount, raahiAuthenticate, raahiGetSession …)
+   (RT QuickCab CreateAccount, RT QuickCab Authenticate, RT QuickCab GetSession …)
    so a customer's profile really does persist in the browser
    across visits. Swap those functions for real API calls when
    a backend is available — nothing here needs to change.
@@ -25,7 +25,7 @@ function toggleAuthPassword(id, iconEl) {
 document.addEventListener('DOMContentLoaded', () => {
 
   /* if already signed in, no need to log in again */
-  const existingSession = typeof raahiGetSession === 'function' ? raahiGetSession() : null;
+  const existingSession = typeof RT QuickCab GetSession === 'function' ? RT QuickCab GetSession() : null;
   if (existingSession && (document.getElementById('login-form') || document.getElementById('register-form'))) {
     toast(`You're already signed in as ${existingSession.name}`, '');
   }
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.disabled = true; btn.textContent = 'Signing in…';
       setTimeout(() => {
         try {
-          const account = raahiAuthenticate(email, password);
+          const account = RT QuickCab Authenticate(email, password);
           toast(`Welcome back, ${account.name.split(' ')[0]}!`, 'success');
           setTimeout(() => window.location.href = 'account.html', 700);
         } catch (err) {
@@ -70,8 +70,8 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.disabled = true; btn.textContent = 'Creating account…';
       setTimeout(() => {
         try {
-          raahiCreateAccount({ name, email, phone, password });
-          toast('Account created! Welcome to Raahi.', 'success');
+          RT QuickCab CreateAccount({ name, email, phone, password });
+          toast('Account created! Welcome to RT QuickCab .', 'success');
           setTimeout(() => window.location.href = 'account.html', 700);
         } catch (err) {
           toast(err.message, 'error');

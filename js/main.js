@@ -1,5 +1,5 @@
 /* =========================================================
-   RAAHI — main.js
+   RT QuickCab  — main.js
    Shared behaviour used across every page
    ========================================================= */
 
@@ -8,106 +8,106 @@
    Everything below persists in the browser's localStorage, so a
    customer's profile, saved addresses and ride history survive
    page reloads and repeat visits on the same device/browser.
-   There is no backend attached — swap RAAHI_DB for real API calls
+   There is no backend attached — swap RT QuickCab _DB for real API calls
    when you have a server, keeping these same function names so
    nothing else on the site needs to change.
    ================================================================= */
-const RAAHI_DB = {
-  ACCOUNTS_KEY: 'raahi_accounts',      // [{name,email,phone,password,createdAt}]
-  SESSION_KEY: 'raahi_session',        // "current@user.email" | null
-  addressesKey: email => `raahi_addresses_${email}`,
-  ridesKey: email => `raahi_rides_${email}`,
+const RT QuickCab _DB = {
+  ACCOUNTS_KEY: 'RT QuickCab _accounts',      // [{name,email,phone,password,createdAt}]
+  SESSION_KEY: 'RT QuickCab _session',        // "current@user.email" | null
+  addressesKey: email => `RT QuickCab _addresses_${email}`,
+  ridesKey: email => `RT QuickCab _rides_${email}`,
 };
 
-function raahiGetAccounts() {
-  try { return JSON.parse(localStorage.getItem(RAAHI_DB.ACCOUNTS_KEY)) || []; }
+function RT QuickCab GetAccounts() {
+  try { return JSON.parse(localStorage.getItem(RT QuickCab _DB.ACCOUNTS_KEY)) || []; }
   catch { return []; }
 }
-function raahiSaveAccounts(list) {
-  localStorage.setItem(RAAHI_DB.ACCOUNTS_KEY, JSON.stringify(list));
+function RT QuickCab SaveAccounts(list) {
+  localStorage.setItem(RT QuickCab _DB.ACCOUNTS_KEY, JSON.stringify(list));
 }
-function raahiFindAccount(email) {
-  return raahiGetAccounts().find(a => a.email.toLowerCase() === (email || '').toLowerCase());
+function RT QuickCab FindAccount(email) {
+  return RT QuickCab GetAccounts().find(a => a.email.toLowerCase() === (email || '').toLowerCase());
 }
-function raahiCreateAccount({ name, email, phone, password }) {
-  const accounts = raahiGetAccounts();
-  if (raahiFindAccount(email)) throw new Error('An account with this email already exists.');
+function RT QuickCab CreateAccount({ name, email, phone, password }) {
+  const accounts = RT QuickCab GetAccounts();
+  if (RT QuickCab FindAccount(email)) throw new Error('An account with this email already exists.');
   const account = { name, email, phone: phone || '', password, createdAt: new Date().toISOString() };
   accounts.push(account);
-  raahiSaveAccounts(accounts);
-  raahiSetSession(email);
+  RT QuickCab SaveAccounts(accounts);
+  RT QuickCab SetSession(email);
   return account;
 }
-function raahiAuthenticate(email, password) {
-  const account = raahiFindAccount(email);
+function RT QuickCab Authenticate(email, password) {
+  const account = RT QuickCab FindAccount(email);
   if (!account || account.password !== password) throw new Error('Incorrect email or password.');
-  raahiSetSession(email);
+  RT QuickCab SetSession(email);
   return account;
 }
-function raahiUpdateAccount(email, updates) {
-  const accounts = raahiGetAccounts();
+function RT QuickCab UpdateAccount(email, updates) {
+  const accounts = RT QuickCab GetAccounts();
   const idx = accounts.findIndex(a => a.email.toLowerCase() === email.toLowerCase());
   if (idx === -1) return null;
   accounts[idx] = { ...accounts[idx], ...updates };
-  raahiSaveAccounts(accounts);
+  RT QuickCab SaveAccounts(accounts);
   return accounts[idx];
 }
-function raahiSetSession(email) { localStorage.setItem(RAAHI_DB.SESSION_KEY, email); }
-function raahiGetSession() {
-  const email = localStorage.getItem(RAAHI_DB.SESSION_KEY);
-  return email ? raahiFindAccount(email) : null;
+function RT QuickCab SetSession(email) { localStorage.setItem(RT QuickCab _DB.SESSION_KEY, email); }
+function RT QuickCab GetSession() {
+  const email = localStorage.getItem(RT QuickCab _DB.SESSION_KEY);
+  return email ? RT QuickCab FindAccount(email) : null;
 }
-function raahiLogout() {
-  localStorage.removeItem(RAAHI_DB.SESSION_KEY);
+function RT QuickCab Logout() {
+  localStorage.removeItem(RT QuickCab _DB.SESSION_KEY);
   toast('You have been signed out', '');
   setTimeout(() => window.location.href = 'index.html', 500);
 }
 
 /* ---- saved addresses ---- */
-function raahiGetAddresses(email) {
-  try { return JSON.parse(localStorage.getItem(RAAHI_DB.addressesKey(email))) || []; }
+function RT QuickCab GetAddresses(email) {
+  try { return JSON.parse(localStorage.getItem(RT QuickCab _DB.addressesKey(email))) || []; }
   catch { return []; }
 }
-function raahiSaveAddress(email, address) {
-  const list = raahiGetAddresses(email);
+function RT QuickCab SaveAddress(email, address) {
+  const list = RT QuickCab GetAddresses(email);
   list.push({ id: 'addr_' + Date.now(), ...address });
-  localStorage.setItem(RAAHI_DB.addressesKey(email), JSON.stringify(list));
+  localStorage.setItem(RT QuickCab _DB.addressesKey(email), JSON.stringify(list));
   return list;
 }
-function raahiDeleteAddress(email, id) {
-  const list = raahiGetAddresses(email).filter(a => a.id !== id);
-  localStorage.setItem(RAAHI_DB.addressesKey(email), JSON.stringify(list));
+function RT QuickCab DeleteAddress(email, id) {
+  const list = RT QuickCab GetAddresses(email).filter(a => a.id !== id);
+  localStorage.setItem(RT QuickCab _DB.addressesKey(email), JSON.stringify(list));
   return list;
 }
 
 /* ---- ride history ---- */
-function raahiGetRides(email) {
-  const key = RAAHI_DB.ridesKey(email || 'guest');
+function RT QuickCab GetRides(email) {
+  const key = RT QuickCab _DB.ridesKey(email || 'guest');
   try { return JSON.parse(localStorage.getItem(key)) || []; }
   catch { return []; }
 }
-function raahiSaveRide(email, ride) {
-  const key = RAAHI_DB.ridesKey(email || 'guest');
-  const list = raahiGetRides(email);
+function RT QuickCab SaveRide(email, ride) {
+  const key = RT QuickCab _DB.ridesKey(email || 'guest');
+  const list = RT QuickCab GetRides(email);
   list.unshift({ id: 'ride_' + Date.now(), bookedAt: new Date().toISOString(), ...ride });
   localStorage.setItem(key, JSON.stringify(list));
   return list;
 }
 
 /* ---- wipe everything for the logged-in customer ---- */
-function raahiClearMyData(email) {
-  localStorage.removeItem(RAAHI_DB.addressesKey(email));
-  localStorage.removeItem(RAAHI_DB.ridesKey(email));
-  const accounts = raahiGetAccounts().filter(a => a.email.toLowerCase() !== email.toLowerCase());
-  raahiSaveAccounts(accounts);
-  localStorage.removeItem(RAAHI_DB.SESSION_KEY);
+function RT QuickCab ClearMyData(email) {
+  localStorage.removeItem(RT QuickCab _DB.addressesKey(email));
+  localStorage.removeItem(RT QuickCab _DB.ridesKey(email));
+  const accounts = RT QuickCab GetAccounts().filter(a => a.email.toLowerCase() !== email.toLowerCase());
+  RT QuickCab SaveAccounts(accounts);
+  localStorage.removeItem(RT QuickCab _DB.SESSION_KEY);
 }
 
 /* ---- reflect login state in the navbar on every page ---- */
-function raahiUpdateAuthNav() {
+function RT QuickCab UpdateAuthNav() {
   const link = document.getElementById('navAuthLink');
   if (!link) return;
-  const user = raahiGetSession();
+  const user = RT QuickCab GetSession();
   if (user) {
     link.href = 'account.html';
     link.innerHTML = `<i class="fas fa-user"></i> ${user.name.split(' ')[0]}`;
@@ -118,7 +118,7 @@ function raahiUpdateAuthNav() {
       logoutBtn.style.padding = '10px 14px';
       logoutBtn.title = 'Sign out';
       logoutBtn.innerHTML = '<i class="fas fa-arrow-right-from-bracket"></i>';
-      logoutBtn.addEventListener('click', raahiLogout);
+      logoutBtn.addEventListener('click', RT QuickCab Logout);
       link.insertAdjacentElement('afterend', logoutBtn);
     }
   } else {
@@ -129,7 +129,7 @@ function raahiUpdateAuthNav() {
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  raahiUpdateAuthNav();
+  RT QuickCab UpdateAuthNav();
 
   /* ---- mobile nav toggle ---- */
   const hamburger = document.getElementById('hamburger');
